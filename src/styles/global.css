@@ -87,4 +87,26 @@
   .glow-purple {
     box-shadow: 0 0 20px rgba(108, 63, 160, 0.15), 0 0 60px rgba(108, 63, 160, 0.05);
   }
+
+  /* i18n: language toggle (default: English) */
+  .zh { display: none !important; }
+  html[lang="zh"] .en { display: none !important; }
+  html[lang="zh"] .zh { display: initial !important; }
+  html[lang="zh"] div.zh,
+  html[lang="zh"] p.zh,
+  html[lang="zh"] h2.zh,
+  html[lang="zh"] h3.zh,
+  html[lang="zh"] section.zh,
+  html[lang="zh"] tr.zh,
+  html[lang="zh"] li.zh { display: block !important; }
+  html[lang="zh"] span.zh { display: inline !important; }
+  html[lang="zh"] div.en,
+  html[lang="zh"] p.en,
+  html[lang="zh"] h2.en,
+  html[lang="zh"] h3.en,
+  html[lang="zh"] section.en,
+  html[lang="zh"] tr.en,
+  html[lang="zh"] li.en { display: none !important; }
+  html[lang="zh"] .flex.zh { display: flex !important; }
+  html[lang="zh"] .grid.zh { display: grid !important; }
 }

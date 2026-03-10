@@ -3,20 +3,29 @@ const metaphors = [
   {
     icon: '🐙',
     title: 'Eight Arms = Realm Governance',
+    titleZh: '八臂 = 域治理',
     description: 'An octopus has 8 tentacles, each with its own nerve center. Every Realm in OpenOctopus works the same way — independent knowledge, agents, and skills.',
+    descriptionZh: '章鱼有 8 条触手，每条都有自己的神经中枢。OpenOctopus 的每个 Realm 也是如此——独立的知识、Agent 和技能。',
     highlight: 'Autonomous domains',
+    highlightZh: '自治域',
   },
   {
     icon: '✨',
     title: 'Glowing Tips = Summon',
+    titleZh: '发光触尖 = 召唤',
     description: 'Deep-sea octopus tentacles emit bioluminescence. That glow is "Summon" — touch anything with a tentacle, and it comes alive as an AI agent.',
+    descriptionZh: '深海章鱼触手发出生物荧光。那束光就是「召唤」——触手一碰，万物化为 AI 智能体。',
     highlight: 'Entities become agents',
+    highlightZh: '实体化为智能体',
   },
   {
     icon: '🧠',
     title: 'Central Brain = Cross-Realm',
+    titleZh: '中央大脑 = 跨域',
     description: 'The octopus brain coordinates all tentacles. OpenOctopus Core connects all Realms via a knowledge graph — cross-realm intelligence without coupling.',
+    descriptionZh: '章鱼大脑协调所有触手。OpenOctopus Core 通过知识图谱连接所有 Realm——跨域智能，无需耦合。',
     highlight: 'Connected intelligence',
+    highlightZh: '互联智能',
   },
 ];
 ---
@@ -24,9 +33,9 @@ const metaphors = [
 <section class="section-padding">
   <div class="section-container">
     <div class="text-center mb-16">
-      <h2 class="section-title">Why an octopus?</h2>
+      <h2 class="section-title"><span class="en">Why an octopus?</span><span class="zh">为什么是章鱼？</span></h2>
       <p class="section-subtitle mx-auto">
-        The most intelligent invertebrate. 500 million neurons. 70% distributed in the tentacles.
+        <span class="en">The most intelligent invertebrate. 500 million neurons. 70% distributed in the tentacles.</span><span class="zh">最聪明的无脊椎动物。5 亿个神经元。70% 分布在触手上。</span>
       </p>
     </div>
 
@@ -34,9 +43,9 @@ const metaphors = [
       {metaphors.map((m) => (
         <div class="card group text-center">
           <div class="text-5xl mb-5">{m.icon}</div>
-          <h3 class="text-lg font-bold mb-3 text-text-primary light:text-text-light-primary">{m.title}</h3>
-          <p class="text-text-secondary light:text-text-light-secondary text-sm leading-relaxed mb-4">{m.description}</p>
-          <span class="inline-block text-xs font-semibold text-cyan bg-cyan/10 px-3 py-1 rounded-full">{m.highlight}</span>
+          <h3 class="text-lg font-bold mb-3 text-text-primary light:text-text-light-primary"><span class="en">{m.title}</span><span class="zh">{m.titleZh}</span></h3>
+          <p class="text-text-secondary light:text-text-light-secondary text-sm leading-relaxed mb-4"><span class="en">{m.description}</span><span class="zh">{m.descriptionZh}</span></p>
+          <span class="inline-block text-xs font-semibold text-cyan bg-cyan/10 px-3 py-1 rounded-full"><span class="en">{m.highlight}</span><span class="zh">{m.highlightZh}</span></span>
         </div>
       ))}
     </div>

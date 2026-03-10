@@ -1,20 +1,20 @@
 ---
 const components = [
-  { name: 'RealmHub', role: 'Realm marketplace', metaphor: 'Realm package hub', icon: '📦' },
-  { name: 'tentacle', role: 'CLI tool', metaphor: 'Tentacle = reach & touch', icon: '🦑' },
-  { name: 'ink', role: 'Agent gateway', metaphor: 'Ink = information flow', icon: '🖊️' },
-  { name: 'summon', role: 'Summon engine', metaphor: 'Core feature', icon: '✨' },
-  { name: 'The Reef', role: 'Community', metaphor: 'Coral reef = habitat', icon: '🪸' },
-  { name: 'REALM.md', role: 'Realm config', metaphor: 'Realm definition', icon: '📋' },
-  { name: 'SOUL.md', role: 'Entity persona', metaphor: 'Agent personality', icon: '👻' },
+  { name: 'RealmHub', role: 'Realm marketplace', roleZh: '域市场', metaphor: 'Realm package hub', metaphorZh: '域套餐中心', icon: '📦' },
+  { name: 'tentacle', role: 'CLI tool', roleZh: '命令行工具', metaphor: 'Tentacle = reach & touch', metaphorZh: '触手 = 触达与操作', icon: '🦑' },
+  { name: 'ink', role: 'Agent gateway', roleZh: 'Agent 网关', metaphor: 'Ink = information flow', metaphorZh: '墨水 = 信息流', icon: '🖊️' },
+  { name: 'summon', role: 'Summon engine', roleZh: '召唤引擎', metaphor: 'Core feature', metaphorZh: '核心功能', icon: '✨' },
+  { name: 'The Reef', role: 'Community', roleZh: '社区', metaphor: 'Coral reef = habitat', metaphorZh: '珊瑚礁 = 栖息地', icon: '🪸' },
+  { name: 'REALM.md', role: 'Realm config', roleZh: '域配置', metaphor: 'Realm definition', metaphorZh: '域定义文件', icon: '📋' },
+  { name: 'SOUL.md', role: 'Entity persona', roleZh: '实体人格', metaphor: 'Agent personality', metaphorZh: 'Agent 性格文件', icon: '👻' },
 ];
 ---
 
 <section class="section-padding">
   <div class="section-container">
     <div class="text-center mb-16">
-      <h2 class="section-title">Ecosystem</h2>
-      <p class="section-subtitle mx-auto">Every component has a name rooted in the octopus metaphor.</p>
+      <h2 class="section-title"><span class="en">Ecosystem</span><span class="zh">生态系统</span></h2>
+      <p class="section-subtitle mx-auto"><span class="en">Every component has a name rooted in the octopus metaphor.</span><span class="zh">每个组件的命名都根植于章鱼隐喻。</span></p>
     </div>
 
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
@@ -22,8 +22,8 @@ const components = [
         <div class="card text-center group">
           <div class="text-2xl mb-2">{c.icon}</div>
           <h3 class="font-bold text-sm text-text-primary light:text-text-light-primary font-mono">{c.name}</h3>
-          <p class="text-xs text-cyan/70 mt-1">{c.role}</p>
-          <p class="text-xs text-text-secondary/50 light:text-text-light-secondary/50 mt-1">{c.metaphor}</p>
+          <p class="text-xs text-cyan/70 mt-1"><span class="en">{c.role}</span><span class="zh">{c.roleZh}</span></p>
+          <p class="text-xs text-text-secondary/50 light:text-text-light-secondary/50 mt-1"><span class="en">{c.metaphor}</span><span class="zh">{c.metaphorZh}</span></p>
         </div>
       ))}
     </div>

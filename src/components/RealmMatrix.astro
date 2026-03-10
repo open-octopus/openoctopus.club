@@ -3,27 +3,27 @@ import { Image } from 'astro:assets';
 import realmIcons from '../assets/brand/realm-icons.png';
 
 const realms = [
-  { icon: '🐾', name: 'Pet', entities: 'Pets, vets, food', agent: 'Momo (summoned)' },
-  { icon: '👨‍👩‍👦', name: 'Parents', entities: 'Parents, health files', agent: 'Mom (summoned)' },
-  { icon: '❤️', name: 'Partner', entities: 'Partner, anniversaries', agent: 'Relationship advisor' },
-  { icon: '💰', name: 'Finance', entities: 'Accounts, investments', agent: 'Budget planner' },
-  { icon: '💼', name: 'Work', entities: 'Projects, goals', agent: 'Task manager' },
-  { icon: '⚖️', name: 'Legal', entities: 'Contracts, statutes', agent: 'Contract lawyer' },
-  { icon: '🚗', name: 'Vehicle', entities: 'Car, insurance', agent: 'Maintenance tracker' },
-  { icon: '🏠', name: 'Home', entities: 'House, appliances', agent: 'Home manager' },
-  { icon: '🏥', name: 'Health', entities: 'Check-ups, prescriptions', agent: 'Health monitor' },
-  { icon: '🏋️', name: 'Fitness', entities: 'Training, body data', agent: 'Fitness coach' },
-  { icon: '🎨', name: 'Hobby', entities: 'Projects, learning', agent: 'Learning coach' },
-  { icon: '👥', name: 'Friends', entities: 'Social circle, events', agent: 'Social radar' },
+  { icon: '🐾', name: 'Pet', nameZh: '宠物', entities: 'Pets, vets, food', entitiesZh: '宠物、兽医、食品', agent: 'Momo (summoned)', agentZh: 'Momo（被召唤）' },
+  { icon: '👨‍👩‍👦', name: 'Parents', nameZh: '父母', entities: 'Parents, health files', entitiesZh: '父母、健康档案', agent: 'Mom (summoned)', agentZh: '妈妈（被召唤）' },
+  { icon: '❤️', name: 'Partner', nameZh: '伴侣', entities: 'Partner, anniversaries', entitiesZh: '伴侣、纪念日', agent: 'Relationship advisor', agentZh: '关系顾问' },
+  { icon: '💰', name: 'Finance', nameZh: '金融', entities: 'Accounts, investments', entitiesZh: '账户、投资', agent: 'Budget planner', agentZh: '预算规划师' },
+  { icon: '💼', name: 'Work', nameZh: '工作', entities: 'Projects, goals', entitiesZh: '项目、目标', agent: 'Task manager', agentZh: '任务管理器' },
+  { icon: '⚖️', name: 'Legal', nameZh: '法律', entities: 'Contracts, statutes', entitiesZh: '合同、法规', agent: 'Contract lawyer', agentZh: '合同律师' },
+  { icon: '🚗', name: 'Vehicle', nameZh: '车辆', entities: 'Car, insurance', entitiesZh: '汽车、保险', agent: 'Maintenance tracker', agentZh: '保养追踪器' },
+  { icon: '🏠', name: 'Home', nameZh: '居家', entities: 'House, appliances', entitiesZh: '房屋、家电', agent: 'Home manager', agentZh: '家庭管家' },
+  { icon: '🏥', name: 'Health', nameZh: '健康', entities: 'Check-ups, prescriptions', entitiesZh: '体检、处方', agent: 'Health monitor', agentZh: '健康监测器' },
+  { icon: '🏋️', name: 'Fitness', nameZh: '健身', entities: 'Training, body data', entitiesZh: '训练、身体数据', agent: 'Fitness coach', agentZh: '健身教练' },
+  { icon: '🎨', name: 'Hobby', nameZh: '爱好', entities: 'Projects, learning', entitiesZh: '项目、学习', agent: 'Learning coach', agentZh: '学习教练' },
+  { icon: '👥', name: 'Friends', nameZh: '朋友', entities: 'Social circle, events', entitiesZh: '社交圈、活动', agent: 'Social radar', agentZh: '社交雷达' },
 ];
 ---
 
 <section id="realms" class="section-padding">
   <div class="section-container">
     <div class="text-center mb-16">
-      <h2 class="section-title">Realm Matrix</h2>
+      <h2 class="section-title"><span class="en">Realm Matrix</span><span class="zh">域矩阵</span></h2>
       <p class="section-subtitle mx-auto">
-        Your life, organized as a grid. Each Realm is an independent domain with its own knowledge, agents, and skills.
+        <span class="en">Your life, organized as a grid. Each Realm is an independent domain with its own knowledge, agents, and skills.</span><span class="zh">你的人生，以网格呈现。每个 Realm 都是独立的域，拥有自己的知识、Agent 和技能。</span>
       </p>
     </div>
 
@@ -31,9 +31,9 @@ const realms = [
       {realms.map((r) => (
         <div class="card group cursor-default">
           <div class="text-3xl mb-3 group-hover:scale-110 transition-transform">{r.icon}</div>
-          <h3 class="font-bold text-text-primary light:text-text-light-primary mb-1">{r.name}</h3>
-          <p class="text-xs text-text-secondary light:text-text-light-secondary mb-2">{r.entities}</p>
-          <p class="text-xs text-cyan/80 font-medium">{r.agent}</p>
+          <h3 class="font-bold text-text-primary light:text-text-light-primary mb-1"><span class="en">{r.name}</span><span class="zh">{r.nameZh}</span></h3>
+          <p class="text-xs text-text-secondary light:text-text-light-secondary mb-2"><span class="en">{r.entities}</span><span class="zh">{r.entitiesZh}</span></p>
+          <p class="text-xs text-cyan/80 font-medium"><span class="en">{r.agent}</span><span class="zh">{r.agentZh}</span></p>
         </div>
       ))}
     </div>
@@ -49,7 +49,7 @@ const realms = [
     </div>
 
     <p class="text-center text-sm text-text-secondary/60 light:text-text-light-secondary/60 mt-8">
-      Create, merge, or delete realms freely. The above are starter templates.
+      <span class="en">Create, merge, or delete realms freely. The above are starter templates.</span><span class="zh">自由创建、合并或删除域。以上仅为预置模板。</span>
     </p>
   </div>
 </section>

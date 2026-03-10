@@ -3,19 +3,25 @@ const packages = [
   {
     icon: '⚖️',
     name: 'Legal Advisor Team',
+    nameZh: '法律顾问团队',
     description: 'Entity templates (lawyer, contract, statute) + 3 agents (contract reviewer, labor law advisor, case researcher) + legal search skill.',
+    descriptionZh: '实体模板（律师、合同、法规）+ 3 个 Agent（合同审查员、劳动法顾问、案例研究员）+ 法律搜索技能。',
     tags: ['entities', 'agents', 'skills'],
   },
   {
     icon: '🐾',
     name: 'Pet Care',
+    nameZh: '宠物护理',
     description: 'Pet profile + health advisor agent + vet lookup skill + vaccination tracker + food recommendation.',
+    descriptionZh: '宠物档案 + 健康顾问 Agent + 兽医查询技能 + 疫苗追踪 + 食品推荐。',
     tags: ['entities', 'agents', 'skills'],
   },
   {
     icon: '💰',
     name: 'Family Finance',
+    nameZh: '家庭金融',
     description: 'Account entities + budget planner agent + investment analyzer + tax assistant + monthly reports.',
+    descriptionZh: '账户实体 + 预算规划 Agent + 投资分析器 + 税务助手 + 月度报告。',
     tags: ['entities', 'agents', 'skills'],
   },
 ];
@@ -28,7 +34,7 @@ const packages = [
         <span class="gradient-text">RealmHub</span>
       </h2>
       <p class="section-subtitle mx-auto">
-        Like an app store, but for life domains. Install a complete realm package in one click.
+        <span class="en">Like an app store, but for life domains. Install a complete realm package in one click.</span><span class="zh">类似应用商店，但面向人生域。一键安装完整的域套餐。</span>
       </p>
     </div>
 
@@ -36,8 +42,8 @@ const packages = [
       {packages.map((p) => (
         <div class="card group">
           <div class="text-4xl mb-4">{p.icon}</div>
-          <h3 class="font-bold text-text-primary light:text-text-light-primary mb-2">{p.name}</h3>
-          <p class="text-sm text-text-secondary light:text-text-light-secondary leading-relaxed mb-4">{p.description}</p>
+          <h3 class="font-bold text-text-primary light:text-text-light-primary mb-2"><span class="en">{p.name}</span><span class="zh">{p.nameZh}</span></h3>
+          <p class="text-sm text-text-secondary light:text-text-light-secondary leading-relaxed mb-4"><span class="en">{p.description}</span><span class="zh">{p.descriptionZh}</span></p>
           <div class="flex flex-wrap gap-2">
             {p.tags.map((t) => (
               <span class="text-xs px-2 py-0.5 rounded-md bg-purple/10 text-purple-light border border-purple/20">{t}</span>
@@ -48,7 +54,7 @@ const packages = [
     </div>
 
     <p class="text-center text-sm text-text-secondary/60 light:text-text-light-secondary/60 mt-8">
-      Each package includes: realm template, entity templates, agent configs, skill configs, and sample data.
+      <span class="en">Each package includes: realm template, entity templates, agent configs, skill configs, and sample data.</span><span class="zh">每个套餐包含：域模板、实体模板、Agent 配置、技能配置和示例数据。</span>
     </p>
   </div>
 </section>

@@ -1,0 +1,30 @@
+<button
+  id="lang-toggle"
+  class="p-2 rounded-lg text-text-secondary hover:text-text-primary light:hover:text-text-light-primary hover:bg-card-dark/50 light:hover:bg-card-light transition-colors text-xs font-semibold"
+  aria-label="Toggle language"
+>
+  <span class="lang-label-en">中</span>
+  <span class="lang-label-zh hidden">EN</span>
+</button>
+
+<script>
+  const langToggle = document.getElementById('lang-toggle');
+  const labelEn = langToggle?.querySelector('.lang-label-en');
+  const labelZh = langToggle?.querySelector('.lang-label-zh');
+
+  function updateLangLabels() {
+    const isZh = document.documentElement.lang === 'zh';
+    labelEn?.classList.toggle('hidden', isZh);
+    labelZh?.classList.toggle('hidden', !isZh);
+  }
+
+  updateLangLabels();
+
+  langToggle?.addEventListener('click', () => {
+    const html = document.documentElement;
+    const isZh = html.lang === 'zh';
+    html.lang = isZh ? 'en' : 'zh';
+    localStorage.setItem('oo-lang', html.lang);
+    updateLangLabels();
+  });
+</script>

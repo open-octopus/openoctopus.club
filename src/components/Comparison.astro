@@ -3,14 +3,14 @@ import { Image } from 'astro:assets';
 import comparisonImg from '../assets/brand/comparison.png';
 
 const rows = [
-  { feature: 'Domain Management', chatgpt: false, notion: 'partial', autogpt: false, oo: true },
-  { feature: 'Entity Summon', chatgpt: false, notion: false, autogpt: false, oo: true },
-  { feature: 'Long-term Memory', chatgpt: 'partial', notion: 'partial', autogpt: false, oo: true },
-  { feature: 'Multi-Agent Collaboration', chatgpt: false, notion: false, autogpt: 'partial', oo: true },
-  { feature: 'Knowledge Graph', chatgpt: false, notion: false, autogpt: false, oo: true },
-  { feature: 'Local-first', chatgpt: false, notion: false, autogpt: true, oo: true },
-  { feature: 'Open Source', chatgpt: false, notion: false, autogpt: true, oo: true },
-  { feature: 'Realm Packages', chatgpt: false, notion: false, autogpt: false, oo: true },
+  { feature: 'Domain Management', featureZh: '域管理', chatgpt: false, notion: 'partial', autogpt: false, oo: true },
+  { feature: 'Entity Summon', featureZh: '实体召唤', chatgpt: false, notion: false, autogpt: false, oo: true },
+  { feature: 'Long-term Memory', featureZh: '长期记忆', chatgpt: 'partial', notion: 'partial', autogpt: false, oo: true },
+  { feature: 'Multi-Agent Collaboration', featureZh: '多 Agent 协作', chatgpt: false, notion: false, autogpt: 'partial', oo: true },
+  { feature: 'Knowledge Graph', featureZh: '知识图谱', chatgpt: false, notion: false, autogpt: false, oo: true },
+  { feature: 'Local-first', featureZh: '本地优先', chatgpt: false, notion: false, autogpt: true, oo: true },
+  { feature: 'Open Source', featureZh: '开源', chatgpt: false, notion: false, autogpt: true, oo: true },
+  { feature: 'Realm Packages', featureZh: '域套餐', chatgpt: false, notion: false, autogpt: false, oo: true },
 ];
 
 function renderCell(val: boolean | string) {
@@ -29,8 +29,8 @@ function cellClass(val: boolean | string) {
 <section class="section-padding">
   <div class="section-container">
     <div class="text-center mb-16">
-      <h2 class="section-title">How we compare</h2>
-      <p class="section-subtitle mx-auto">OpenOctopus fills the gap no other tool covers.</p>
+      <h2 class="section-title"><span class="en">How we compare</span><span class="zh">对比分析</span></h2>
+      <p class="section-subtitle mx-auto"><span class="en">OpenOctopus fills the gap no other tool covers.</span><span class="zh">OpenOctopus 填补了其他工具无法覆盖的空白。</span></p>
     </div>
 
     <!-- Visual comparison -->
@@ -47,7 +47,7 @@ function cellClass(val: boolean | string) {
       <table class="w-full max-w-4xl mx-auto text-sm">
         <thead>
           <tr class="border-b border-border-dark/50 light:border-border-light/50">
-            <th class="text-left py-3 px-4 font-semibold text-text-secondary light:text-text-light-secondary">Capability</th>
+            <th class="text-left py-3 px-4 font-semibold text-text-secondary light:text-text-light-secondary"><span class="en">Capability</span><span class="zh">能力</span></th>
             <th class="text-center py-3 px-4 font-semibold text-text-secondary light:text-text-light-secondary">ChatGPT</th>
             <th class="text-center py-3 px-4 font-semibold text-text-secondary light:text-text-light-secondary">Notion AI</th>
             <th class="text-center py-3 px-4 font-semibold text-text-secondary light:text-text-light-secondary">AutoGPT</th>
@@ -57,7 +57,7 @@ function cellClass(val: boolean | string) {
         <tbody>
           {rows.map((r) => (
             <tr class="border-b border-border-dark/20 light:border-border-light/20 hover:bg-card-dark/30 light:hover:bg-card-light/50 transition-colors">
-              <td class="py-3 px-4 text-text-primary light:text-text-light-primary font-medium">{r.feature}</td>
+              <td class="py-3 px-4 text-text-primary light:text-text-light-primary font-medium"><span class="en">{r.feature}</span><span class="zh">{r.featureZh}</span></td>
               <td class:list={['text-center py-3 px-4', cellClass(r.chatgpt)]}>{renderCell(r.chatgpt)}</td>
               <td class:list={['text-center py-3 px-4', cellClass(r.notion)]}>{renderCell(r.notion)}</td>
               <td class:list={['text-center py-3 px-4', cellClass(r.autogpt)]}>{renderCell(r.autogpt)}</td>

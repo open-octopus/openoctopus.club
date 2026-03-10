@@ -1,17 +1,17 @@
 ---
 const commands = [
-  { comment: '# Install', cmd: 'npm i -g openoctopus' },
-  { comment: '# Initialize your life system', cmd: 'tentacle init' },
-  { comment: '# Create your first realm', cmd: 'tentacle realm create pet --template default' },
-  { comment: '# Summon your first entity', cmd: 'tentacle summon --realm pet --name "Momo" --type living' },
+  { comment: '# Install', commentZh: '# 安装', cmd: 'npm i -g openoctopus' },
+  { comment: '# Initialize your life system', commentZh: '# 初始化你的人生系统', cmd: 'tentacle init' },
+  { comment: '# Create your first realm', commentZh: '# 创建你的第一个域', cmd: 'tentacle realm create pet --template default' },
+  { comment: '# Summon your first entity', commentZh: '# 召唤你的第一个实体', cmd: 'tentacle summon --realm pet --name "Momo" --type living' },
 ];
 ---
 
 <section id="quickstart" class="section-padding">
   <div class="section-container">
     <div class="text-center mb-16">
-      <h2 class="section-title">Quick Start</h2>
-      <p class="section-subtitle mx-auto">From zero to summoning in four commands.</p>
+      <h2 class="section-title"><span class="en">Quick Start</span><span class="zh">快速开始</span></h2>
+      <p class="section-subtitle mx-auto"><span class="en">From zero to summoning in four commands.</span><span class="zh">四条命令，从零到召唤。</span></p>
     </div>
 
     <div class="max-w-2xl mx-auto">
@@ -30,7 +30,7 @@ const commands = [
         <div class="bg-abyss light:bg-gray-50 p-6 font-mono text-sm space-y-4">
           {commands.map((c) => (
             <div>
-              <div class="text-text-secondary/50 light:text-text-light-secondary/50 text-xs mb-1">{c.comment}</div>
+              <div class="text-text-secondary/50 light:text-text-light-secondary/50 text-xs mb-1"><span class="en">{c.comment}</span><span class="zh">{c.commentZh}</span></div>
               <div class="flex items-center gap-2">
                 <span class="text-cyan select-none">$</span>
                 <span class="text-text-primary light:text-text-light-primary">{c.cmd}</span>
@@ -42,7 +42,7 @@ const commands = [
 
       <!-- Alternative install methods -->
       <div class="flex flex-wrap justify-center gap-4 mt-8 text-sm text-text-secondary light:text-text-light-secondary">
-        <span>Also available via:</span>
+        <span><span class="en">Also available via:</span><span class="zh">也可通过以下方式安装：</span></span>
         <code class="font-mono text-cyan/80">pnpm add -g openoctopus</code>
         <span class="text-border-dark light:text-border-light">|</span>
         <code class="font-mono text-cyan/80">docker compose up</code>

@@ -3,32 +3,44 @@ const features = [
   {
     icon: '<svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>',
     title: 'Realm Matrix',
+    titleZh: '域矩阵',
     description: 'Grid dashboard of all life realms. Health scores, risks, and to-dos at a glance. Each realm card shows real-time status.',
+    descriptionZh: '所有人生域的网格仪表盘。健康评分、风险和待办一目了然。每张域卡片显示实时状态。',
   },
   {
     icon: '<svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>',
     title: 'Summon',
+    titleZh: '召唤',
     description: 'Turn any entity — pet, person, car, goal — into an AI agent with memory, personality, and proactive behavior. The core differentiator.',
+    descriptionZh: '将任何实体——宠物、人、车、目标——变为拥有记忆、性格和主动行为的 AI 智能体。核心差异化功能。',
   },
   {
     icon: '<svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>',
     title: 'Cross-Realm Intelligence',
+    titleZh: '跨域智能',
     description: 'Knowledge graph connects all realms. Your pet realm knows your finance budget. Your work realm knows your health status.',
+    descriptionZh: '知识图谱连接所有域。你的宠物域知道你的财务预算。你的工作域知道你的健康状况。',
   },
   {
     icon: '<svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>',
     title: 'Dual-layer Skills',
+    titleZh: '双层技能',
     description: 'Global skills (search, calendar, email) available everywhere. Realm skills (vet lookup, tax calc) scoped to their domain.',
+    descriptionZh: '全局技能（搜索、日历、邮件）随处可用。域技能（兽医查询、税务计算）限定在各自域内。',
   },
   {
     icon: '<svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
     title: 'Agent Teams',
+    titleZh: 'Agent 团队',
     description: 'Three tiers: Central (router, coordinator, scheduler), Realm (professional), and Summoned (entity-derived). They collaborate naturally.',
+    descriptionZh: '三层架构：中央（路由器、协调器、调度器）、域级（专业）和被召唤级（实体衍生）。自然协作。',
   },
   {
     icon: '<svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>',
     title: 'Local-first',
+    titleZh: '本地优先',
     description: 'SQLite by default. Your data stays on your machine. Optional cloud sync via PostgreSQL / Supabase when you need it.',
+    descriptionZh: '默认 SQLite。数据留在你的设备上。需要时可选 PostgreSQL / Supabase 云同步。',
   },
 ];
 ---
@@ -36,16 +48,16 @@ const features = [
 <section id="features" class="section-padding">
   <div class="section-container">
     <div class="text-center mb-16">
-      <h2 class="section-title">Features</h2>
-      <p class="section-subtitle mx-auto">Everything you need to govern your life with AI agents.</p>
+      <h2 class="section-title"><span class="en">Features</span><span class="zh">功能特性</span></h2>
+      <p class="section-subtitle mx-auto"><span class="en">Everything you need to govern your life with AI agents.</span><span class="zh">用 AI Agent 治理人生所需的一切。</span></p>
     </div>
 
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
       {features.map((f) => (
         <div class="card group">
           <div class="w-12 h-12 rounded-xl bg-purple/10 light:bg-purple/5 flex items-center justify-center text-cyan mb-4 group-hover:bg-purple/20 transition-colors" set:html={f.icon} />
-          <h3 class="text-lg font-bold text-text-primary light:text-text-light-primary mb-2">{f.title}</h3>
-          <p class="text-sm text-text-secondary light:text-text-light-secondary leading-relaxed">{f.description}</p>
+          <h3 class="text-lg font-bold text-text-primary light:text-text-light-primary mb-2"><span class="en">{f.title}</span><span class="zh">{f.titleZh}</span></h3>
+          <p class="text-sm text-text-secondary light:text-text-light-secondary leading-relaxed"><span class="en">{f.description}</span><span class="zh">{f.descriptionZh}</span></p>
         </div>
       ))}
     </div>

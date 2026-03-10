@@ -1,5 +1,6 @@
 ---
 import ThemeToggle from './ThemeToggle.astro';
+import LanguageToggle from './LanguageToggle.astro';
 ---
 
 <header class="fixed top-0 left-0 right-0 z-50 border-b border-border-dark/50 light:border-border-light/50 backdrop-blur-xl bg-abyss/80 light:bg-surface/80">
@@ -18,16 +19,17 @@ import ThemeToggle from './ThemeToggle.astro';
 
     <!-- Nav -->
     <nav class="hidden md:flex items-center gap-6 text-sm text-text-secondary light:text-text-light-secondary">
-      <a href="#realms" class="hover:text-text-primary light:hover:text-text-light-primary transition-colors">Realms</a>
-      <a href="#summon" class="hover:text-text-primary light:hover:text-text-light-primary transition-colors">Summon</a>
-      <a href="#features" class="hover:text-text-primary light:hover:text-text-light-primary transition-colors">Features</a>
-      <a href="#quickstart" class="hover:text-text-primary light:hover:text-text-light-primary transition-colors">Get Started</a>
+      <a href="#realms" class="hover:text-text-primary light:hover:text-text-light-primary transition-colors"><span class="en">Realms</span><span class="zh">域</span></a>
+      <a href="#summon" class="hover:text-text-primary light:hover:text-text-light-primary transition-colors"><span class="en">Summon</span><span class="zh">召唤</span></a>
+      <a href="#features" class="hover:text-text-primary light:hover:text-text-light-primary transition-colors"><span class="en">Features</span><span class="zh">功能</span></a>
+      <a href="#quickstart" class="hover:text-text-primary light:hover:text-text-light-primary transition-colors"><span class="en">Get Started</span><span class="zh">快速开始</span></a>
       <a href="https://github.com/open-octopus/openoctopus" target="_blank" rel="noopener" class="hover:text-text-primary light:hover:text-text-light-primary transition-colors">GitHub</a>
       <a href="https://discord.gg/openoctopus" target="_blank" rel="noopener" class="hover:text-text-primary light:hover:text-text-light-primary transition-colors">Discord</a>
     </nav>
 
     <!-- Right side -->
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-2">
+      <LanguageToggle />
       <ThemeToggle />
       <!-- Mobile menu button -->
       <button id="mobile-menu-btn" class="md:hidden p-2 text-text-secondary hover:text-text-primary light:hover:text-text-light-primary" aria-label="Menu">
@@ -41,10 +43,10 @@ import ThemeToggle from './ThemeToggle.astro';
   <!-- Mobile nav -->
   <div id="mobile-menu" class="hidden md:hidden border-t border-border-dark/50 light:border-border-light/50 bg-abyss/95 light:bg-surface/95">
     <nav class="section-container py-4 flex flex-col gap-3 text-sm text-text-secondary light:text-text-light-secondary">
-      <a href="#realms" class="py-2 hover:text-text-primary">Realms</a>
-      <a href="#summon" class="py-2 hover:text-text-primary">Summon</a>
-      <a href="#features" class="py-2 hover:text-text-primary">Features</a>
-      <a href="#quickstart" class="py-2 hover:text-text-primary">Get Started</a>
+      <a href="#realms" class="py-2 hover:text-text-primary"><span class="en">Realms</span><span class="zh">域</span></a>
+      <a href="#summon" class="py-2 hover:text-text-primary"><span class="en">Summon</span><span class="zh">召唤</span></a>
+      <a href="#features" class="py-2 hover:text-text-primary"><span class="en">Features</span><span class="zh">功能</span></a>
+      <a href="#quickstart" class="py-2 hover:text-text-primary"><span class="en">Get Started</span><span class="zh">快速开始</span></a>
       <a href="https://github.com/open-octopus/openoctopus" target="_blank" rel="noopener" class="py-2 hover:text-text-primary">GitHub</a>
       <a href="https://discord.gg/openoctopus" target="_blank" rel="noopener" class="py-2 hover:text-text-primary">Discord</a>
     </nav>
