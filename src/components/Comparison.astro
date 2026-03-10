@@ -1,4 +1,7 @@
 ---
+import { Image } from 'astro:assets';
+import comparisonImg from '../assets/brand/comparison.png';
+
 const rows = [
   { feature: 'Domain Management', chatgpt: false, notion: 'partial', autogpt: false, oo: true },
   { feature: 'Entity Summon', chatgpt: false, notion: false, autogpt: false, oo: true },
@@ -28,6 +31,16 @@ function cellClass(val: boolean | string) {
     <div class="text-center mb-16">
       <h2 class="section-title">How we compare</h2>
       <p class="section-subtitle mx-auto">OpenOctopus fills the gap no other tool covers.</p>
+    </div>
+
+    <!-- Visual comparison -->
+    <div class="max-w-3xl mx-auto mb-12">
+      <Image
+        src={comparisonImg}
+        alt="Comparison: ChatGPT vs Notion AI vs AutoGPT vs OpenOctopus"
+        class="rounded-2xl border border-border-dark/50 light:border-border-light/50"
+        width={768}
+      />
     </div>
 
     <div class="overflow-x-auto">

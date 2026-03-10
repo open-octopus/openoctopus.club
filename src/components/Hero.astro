@@ -1,9 +1,19 @@
 ---
 import { Image } from 'astro:assets';
 import banner from '../assets/brand/banner.png';
+import heroBg from '../assets/brand/hero-bg.png';
 ---
 
 <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
+  <!-- Background image -->
+  <div class="absolute inset-0">
+    <Image
+      src={heroBg}
+      alt=""
+      class="w-full h-full object-cover opacity-30 light:opacity-15"
+      width={1920}
+    />
+  </div>
   <!-- Background effects -->
   <div class="absolute inset-0 bg-hero-glow light:opacity-50"></div>
   <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-purple/5 blur-3xl light:bg-purple/3"></div>

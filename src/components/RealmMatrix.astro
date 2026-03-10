@@ -1,4 +1,7 @@
 ---
+import { Image } from 'astro:assets';
+import realmIcons from '../assets/brand/realm-icons.png';
+
 const realms = [
   { icon: '🐾', name: 'Pet', entities: 'Pets, vets, food', agent: 'Momo (summoned)' },
   { icon: '👨‍👩‍👦', name: 'Parents', entities: 'Parents, health files', agent: 'Mom (summoned)' },
@@ -33,6 +36,16 @@ const realms = [
           <p class="text-xs text-cyan/80 font-medium">{r.agent}</p>
         </div>
       ))}
+    </div>
+
+    <!-- Realm icons overview -->
+    <div class="mt-12 max-w-3xl mx-auto">
+      <Image
+        src={realmIcons}
+        alt="12 realm domain icons"
+        class="rounded-2xl border border-border-dark/50 light:border-border-light/50"
+        width={768}
+      />
     </div>
 
     <p class="text-center text-sm text-text-secondary/60 light:text-text-light-secondary/60 mt-8">

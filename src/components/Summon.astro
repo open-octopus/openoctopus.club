@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import summonConcept from '../assets/brand/summon-concept.png';
+import summonSequence from '../assets/brand/summon-sequence.png';
 
 const entityTypes = [
   { type: 'Living', icon: '🐾', examples: 'Pet, family, friend', ability: 'Personality, dialogue, emotions' },
@@ -45,6 +46,16 @@ const conversation = [
           Raw data → Structured Entity → <span class="text-cyan font-bold">SUMMON</span> → Agent with memory, personality &amp; initiative
         </code>
       </div>
+    </div>
+
+    <!-- Summon sequence -->
+    <div class="max-w-4xl mx-auto mb-16">
+      <Image
+        src={summonSequence}
+        alt="Summon transformation sequence: grey silhouette → tentacle touch → particles → living agent"
+        class="rounded-2xl border border-border-dark/50 light:border-border-light/50"
+        width={960}
+      />
     </div>
 
     <!-- Entity types -->
