@@ -1,0 +1,44 @@
+---
+const metaphors = [
+  {
+    icon: '🐙',
+    title: 'Eight Arms = Realm Governance',
+    description: 'An octopus has 8 tentacles, each with its own nerve center. Every Realm in OpenOctopus works the same way — independent knowledge, agents, and skills.',
+    highlight: 'Autonomous domains',
+  },
+  {
+    icon: '✨',
+    title: 'Glowing Tips = Summon',
+    description: 'Deep-sea octopus tentacles emit bioluminescence. That glow is "Summon" — touch anything with a tentacle, and it comes alive as an AI agent.',
+    highlight: 'Entities become agents',
+  },
+  {
+    icon: '🧠',
+    title: 'Central Brain = Cross-Realm',
+    description: 'The octopus brain coordinates all tentacles. OpenOctopus Core connects all Realms via a knowledge graph — cross-realm intelligence without coupling.',
+    highlight: 'Connected intelligence',
+  },
+];
+---
+
+<section class="section-padding">
+  <div class="section-container">
+    <div class="text-center mb-16">
+      <h2 class="section-title">Why an octopus?</h2>
+      <p class="section-subtitle mx-auto">
+        The most intelligent invertebrate. 500 million neurons. 70% distributed in the tentacles.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      {metaphors.map((m) => (
+        <div class="card group text-center">
+          <div class="text-5xl mb-5">{m.icon}</div>
+          <h3 class="text-lg font-bold mb-3 text-text-primary light:text-text-light-primary">{m.title}</h3>
+          <p class="text-text-secondary light:text-text-light-secondary text-sm leading-relaxed mb-4">{m.description}</p>
+          <span class="inline-block text-xs font-semibold text-cyan bg-cyan/10 px-3 py-1 rounded-full">{m.highlight}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

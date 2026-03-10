@@ -1,0 +1,57 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'OpenOctopus — Organize life by realms. Summon anything into a living agent.',
+  description = 'Realm-native life agent system. Organize your life into autonomous domains, each with its own knowledge base, agent team, and skill set. Turn any entity into a living AI agent with Summon.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content="AI agent, life management, realm, summon, personal assistant, knowledge base, local-first, open source" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="OpenOctopus — Realm-native Life Agent System" />
+    <meta property="og:description" content="Organize life by realms. Summon anything into a living agent. Eight arms, every realm covered." />
+    <meta property="og:image" content="/og-image.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://openoctopus.club" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@openoctopus" />
+    <meta name="twitter:title" content="OpenOctopus — SUMMON!" />
+    <meta name="twitter:description" content="Organize life by realms. Summon anything into a living agent." />
+    <meta name="twitter:image" content="/og-image.png" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favicon.png" />
+
+    <!-- Fonts via Google Fonts CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet" />
+
+    <!-- Theme init (prevent FOUC) -->
+    <script is:inline>
+      (function () {
+        const theme = localStorage.getItem('oo-theme');
+        if (theme === 'light') {
+          document.documentElement.classList.add('light');
+        }
+      })();
+    </script>
+  </head>
+  <body class="min-h-screen">
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,53 @@
+---
+const features = [
+  {
+    icon: '<svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>',
+    title: 'Realm Matrix',
+    description: 'Grid dashboard of all life realms. Health scores, risks, and to-dos at a glance. Each realm card shows real-time status.',
+  },
+  {
+    icon: '<svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>',
+    title: 'Summon',
+    description: 'Turn any entity — pet, person, car, goal — into an AI agent with memory, personality, and proactive behavior. The core differentiator.',
+  },
+  {
+    icon: '<svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>',
+    title: 'Cross-Realm Intelligence',
+    description: 'Knowledge graph connects all realms. Your pet realm knows your finance budget. Your work realm knows your health status.',
+  },
+  {
+    icon: '<svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>',
+    title: 'Dual-layer Skills',
+    description: 'Global skills (search, calendar, email) available everywhere. Realm skills (vet lookup, tax calc) scoped to their domain.',
+  },
+  {
+    icon: '<svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+    title: 'Agent Teams',
+    description: 'Three tiers: Central (router, coordinator, scheduler), Realm (professional), and Summoned (entity-derived). They collaborate naturally.',
+  },
+  {
+    icon: '<svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>',
+    title: 'Local-first',
+    description: 'SQLite by default. Your data stays on your machine. Optional cloud sync via PostgreSQL / Supabase when you need it.',
+  },
+];
+---
+
+<section id="features" class="section-padding">
+  <div class="section-container">
+    <div class="text-center mb-16">
+      <h2 class="section-title">Features</h2>
+      <p class="section-subtitle mx-auto">Everything you need to govern your life with AI agents.</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {features.map((f) => (
+        <div class="card group">
+          <div class="w-12 h-12 rounded-xl bg-purple/10 light:bg-purple/5 flex items-center justify-center text-cyan mb-4 group-hover:bg-purple/20 transition-colors" set:html={f.icon} />
+          <h3 class="text-lg font-bold text-text-primary light:text-text-light-primary mb-2">{f.title}</h3>
+          <p class="text-sm text-text-secondary light:text-text-light-secondary leading-relaxed">{f.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

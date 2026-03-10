@@ -1,0 +1,58 @@
+---
+const rows = [
+  { feature: 'Domain Management', chatgpt: false, notion: 'partial', autogpt: false, oo: true },
+  { feature: 'Entity Summon', chatgpt: false, notion: false, autogpt: false, oo: true },
+  { feature: 'Long-term Memory', chatgpt: 'partial', notion: 'partial', autogpt: false, oo: true },
+  { feature: 'Multi-Agent Collaboration', chatgpt: false, notion: false, autogpt: 'partial', oo: true },
+  { feature: 'Knowledge Graph', chatgpt: false, notion: false, autogpt: false, oo: true },
+  { feature: 'Local-first', chatgpt: false, notion: false, autogpt: true, oo: true },
+  { feature: 'Open Source', chatgpt: false, notion: false, autogpt: true, oo: true },
+  { feature: 'Realm Packages', chatgpt: false, notion: false, autogpt: false, oo: true },
+];
+
+function renderCell(val: boolean | string) {
+  if (val === true) return '✓';
+  if (val === false) return '—';
+  return '~';
+}
+
+function cellClass(val: boolean | string) {
+  if (val === true) return 'text-cyan font-bold';
+  if (val === false) return 'text-text-secondary/30 light:text-text-light-secondary/30';
+  return 'text-amber-400/60';
+}
+---
+
+<section class="section-padding">
+  <div class="section-container">
+    <div class="text-center mb-16">
+      <h2 class="section-title">How we compare</h2>
+      <p class="section-subtitle mx-auto">OpenOctopus fills the gap no other tool covers.</p>
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="w-full max-w-4xl mx-auto text-sm">
+        <thead>
+          <tr class="border-b border-border-dark/50 light:border-border-light/50">
+            <th class="text-left py-3 px-4 font-semibold text-text-secondary light:text-text-light-secondary">Capability</th>
+            <th class="text-center py-3 px-4 font-semibold text-text-secondary light:text-text-light-secondary">ChatGPT</th>
+            <th class="text-center py-3 px-4 font-semibold text-text-secondary light:text-text-light-secondary">Notion AI</th>
+            <th class="text-center py-3 px-4 font-semibold text-text-secondary light:text-text-light-secondary">AutoGPT</th>
+            <th class="text-center py-3 px-4 font-bold text-cyan">OpenOctopus</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr class="border-b border-border-dark/20 light:border-border-light/20 hover:bg-card-dark/30 light:hover:bg-card-light/50 transition-colors">
+              <td class="py-3 px-4 text-text-primary light:text-text-light-primary font-medium">{r.feature}</td>
+              <td class:list={['text-center py-3 px-4', cellClass(r.chatgpt)]}>{renderCell(r.chatgpt)}</td>
+              <td class:list={['text-center py-3 px-4', cellClass(r.notion)]}>{renderCell(r.notion)}</td>
+              <td class:list={['text-center py-3 px-4', cellClass(r.autogpt)]}>{renderCell(r.autogpt)}</td>
+              <td class:list={['text-center py-3 px-4', cellClass(r.oo)]}>{renderCell(r.oo)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

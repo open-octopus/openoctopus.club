@@ -1,0 +1,64 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 border-b border-border-dark/50 light:border-border-light/50 backdrop-blur-xl bg-abyss/80 light:bg-surface/80">
+  <div class="section-container flex items-center justify-between h-16">
+    <!-- Logo -->
+    <a href="/" class="flex items-center gap-3 group">
+      <img
+        src="/favicon.png"
+        alt="OpenOctopus"
+        class="w-8 h-8"
+      />
+      <span class="text-lg font-bold">
+        <span class="text-text-primary light:text-text-light-primary">Open</span><span class="text-purple">Octopus</span>
+      </span>
+    </a>
+
+    <!-- Nav -->
+    <nav class="hidden md:flex items-center gap-6 text-sm text-text-secondary light:text-text-light-secondary">
+      <a href="#realms" class="hover:text-text-primary light:hover:text-text-light-primary transition-colors">Realms</a>
+      <a href="#summon" class="hover:text-text-primary light:hover:text-text-light-primary transition-colors">Summon</a>
+      <a href="#features" class="hover:text-text-primary light:hover:text-text-light-primary transition-colors">Features</a>
+      <a href="#quickstart" class="hover:text-text-primary light:hover:text-text-light-primary transition-colors">Get Started</a>
+      <a href="https://github.com/open-octopus/openoctopus" target="_blank" rel="noopener" class="hover:text-text-primary light:hover:text-text-light-primary transition-colors">GitHub</a>
+      <a href="https://discord.gg/openoctopus" target="_blank" rel="noopener" class="hover:text-text-primary light:hover:text-text-light-primary transition-colors">Discord</a>
+    </nav>
+
+    <!-- Right side -->
+    <div class="flex items-center gap-3">
+      <ThemeToggle />
+      <!-- Mobile menu button -->
+      <button id="mobile-menu-btn" class="md:hidden p-2 text-text-secondary hover:text-text-primary light:hover:text-text-light-primary" aria-label="Menu">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 5h14M3 10h14M3 15h14" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile nav -->
+  <div id="mobile-menu" class="hidden md:hidden border-t border-border-dark/50 light:border-border-light/50 bg-abyss/95 light:bg-surface/95">
+    <nav class="section-container py-4 flex flex-col gap-3 text-sm text-text-secondary light:text-text-light-secondary">
+      <a href="#realms" class="py-2 hover:text-text-primary">Realms</a>
+      <a href="#summon" class="py-2 hover:text-text-primary">Summon</a>
+      <a href="#features" class="py-2 hover:text-text-primary">Features</a>
+      <a href="#quickstart" class="py-2 hover:text-text-primary">Get Started</a>
+      <a href="https://github.com/open-octopus/openoctopus" target="_blank" rel="noopener" class="py-2 hover:text-text-primary">GitHub</a>
+      <a href="https://discord.gg/openoctopus" target="_blank" rel="noopener" class="py-2 hover:text-text-primary">Discord</a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  btn?.addEventListener('click', () => {
+    menu?.classList.toggle('hidden');
+  });
+  // Close mobile menu on anchor click
+  menu?.querySelectorAll('a').forEach((a) => {
+    a.addEventListener('click', () => menu?.classList.add('hidden'));
+  });
+</script>

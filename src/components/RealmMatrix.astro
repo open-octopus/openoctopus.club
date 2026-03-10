@@ -1,0 +1,42 @@
+---
+const realms = [
+  { icon: '🐾', name: 'Pet', entities: 'Pets, vets, food', agent: 'Momo (summoned)' },
+  { icon: '👨‍👩‍👦', name: 'Parents', entities: 'Parents, health files', agent: 'Mom (summoned)' },
+  { icon: '❤️', name: 'Partner', entities: 'Partner, anniversaries', agent: 'Relationship advisor' },
+  { icon: '💰', name: 'Finance', entities: 'Accounts, investments', agent: 'Budget planner' },
+  { icon: '💼', name: 'Work', entities: 'Projects, goals', agent: 'Task manager' },
+  { icon: '⚖️', name: 'Legal', entities: 'Contracts, statutes', agent: 'Contract lawyer' },
+  { icon: '🚗', name: 'Vehicle', entities: 'Car, insurance', agent: 'Maintenance tracker' },
+  { icon: '🏠', name: 'Home', entities: 'House, appliances', agent: 'Home manager' },
+  { icon: '🏥', name: 'Health', entities: 'Check-ups, prescriptions', agent: 'Health monitor' },
+  { icon: '🏋️', name: 'Fitness', entities: 'Training, body data', agent: 'Fitness coach' },
+  { icon: '🎨', name: 'Hobby', entities: 'Projects, learning', agent: 'Learning coach' },
+  { icon: '👥', name: 'Friends', entities: 'Social circle, events', agent: 'Social radar' },
+];
+---
+
+<section id="realms" class="section-padding">
+  <div class="section-container">
+    <div class="text-center mb-16">
+      <h2 class="section-title">Realm Matrix</h2>
+      <p class="section-subtitle mx-auto">
+        Your life, organized as a grid. Each Realm is an independent domain with its own knowledge, agents, and skills.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      {realms.map((r) => (
+        <div class="card group cursor-default">
+          <div class="text-3xl mb-3 group-hover:scale-110 transition-transform">{r.icon}</div>
+          <h3 class="font-bold text-text-primary light:text-text-light-primary mb-1">{r.name}</h3>
+          <p class="text-xs text-text-secondary light:text-text-light-secondary mb-2">{r.entities}</p>
+          <p class="text-xs text-cyan/80 font-medium">{r.agent}</p>
+        </div>
+      ))}
+    </div>
+
+    <p class="text-center text-sm text-text-secondary/60 light:text-text-light-secondary/60 mt-8">
+      Create, merge, or delete realms freely. The above are starter templates.
+    </p>
+  </div>
+</section>

@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    color-scheme: dark;
+  }
+
+  html.light {
+    color-scheme: light;
+  }
+
+  body {
+    @apply bg-abyss text-text-primary antialiased;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+
+  html.light body {
+    @apply bg-surface text-text-light-primary;
+  }
+
+  ::selection {
+    @apply bg-purple/30 text-white;
+  }
+
+  html.light ::selection {
+    @apply bg-purple/20 text-text-light-primary;
+  }
+}
+
+@layer components {
+  .section-container {
+    @apply max-w-6xl mx-auto px-6 md:px-8;
+  }
+
+  .section-padding {
+    @apply py-20 md:py-28;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold tracking-tight mb-4;
+  }
+
+  .section-subtitle {
+    @apply text-text-secondary text-lg md:text-xl max-w-2xl;
+  }
+
+  html.light .section-subtitle {
+    @apply text-text-light-secondary;
+  }
+
+  .card {
+    @apply rounded-xl border border-border-dark bg-card-dark/50 p-6
+           transition-all duration-300 hover:border-purple/50 hover:bg-card-dark/80;
+  }
+
+  html.light .card {
+    @apply border-border-light bg-card-light shadow-sm hover:border-purple/40 hover:bg-white hover:shadow-md;
+  }
+
+  .gradient-text {
+    @apply bg-summon-gradient bg-clip-text text-transparent;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold
+           bg-cyan text-abyss transition-all duration-200
+           hover:bg-cyan-light hover:shadow-lg hover:shadow-cyan/20;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold
+           border border-border-dark text-text-primary
+           transition-all duration-200 hover:border-purple/50 hover:bg-card-dark/50;
+  }
+
+  html.light .btn-secondary {
+    @apply border-border-light text-text-light-primary hover:border-purple/40 hover:bg-card-light;
+  }
+
+  .glow-cyan {
+    box-shadow: 0 0 20px rgba(0, 212, 170, 0.15), 0 0 60px rgba(0, 212, 170, 0.05);
+  }
+
+  .glow-purple {
+    box-shadow: 0 0 20px rgba(108, 63, 160, 0.15), 0 0 60px rgba(108, 63, 160, 0.05);
+  }
+}

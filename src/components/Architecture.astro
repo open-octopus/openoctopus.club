@@ -1,0 +1,35 @@
+<section class="section-padding">
+  <div class="section-container">
+    <div class="text-center mb-16">
+      <h2 class="section-title">Architecture</h2>
+      <p class="section-subtitle mx-auto">Central brain coordinates. Each tentacle acts autonomously.</p>
+    </div>
+
+    <div class="max-w-3xl mx-auto">
+      <div class="rounded-xl border border-border-dark/50 light:border-border-light/50 bg-card-dark/30 light:bg-card-light/50 p-6 md:p-8 overflow-x-auto">
+        <pre class="text-xs md:text-sm font-mono text-text-secondary light:text-text-light-secondary leading-relaxed whitespace-pre"><code>  CLI / Web Dashboard / Telegram / Discord
+                    │
+                    ▼
+  ┌──────────────────────────────────────────────┐
+  │          OpenOctopus Core <span class="text-cyan">(Brain)</span>            │
+  │                                              │
+  │  <span class="text-purple-light">Router Agent</span> · <span class="text-purple-light">Coordinator</span> · <span class="text-purple-light">Scheduler</span>      │
+  │  <span class="text-cyan">Knowledge Graph</span> (cross-realm entity links)  │
+  │  Global Skills (search · calendar · email)   │
+  └──────┬──────────┬──────────┬──────────┬──────┘
+         │          │          │          │
+    ┌────▼───┐ ┌───▼────┐ ┌───▼────┐ ┌───▼────┐
+    │  <span class="text-amber-400">Pet</span>   │ │<span class="text-green-400">Finance</span>│ │ <span class="text-blue-400">Legal</span>  │ │<span class="text-pink-400">Parents</span>│  ...
+    │ Realm  │ │ Realm  │ │ Realm  │ │ Realm  │
+    │        │ │        │ │        │ │        │
+    │ Agents │ │ Agents │ │ Agents │ │ Agents │
+    │ Skills │ │ Skills │ │ Skills │ │ Skills │
+    │ Memory │ │ Memory │ │ Memory │ │ Memory │
+    └────────┘ └────────┘ └────────┘ └────────┘
+
+    <span class="text-cyan">✦</span> Summoned agents live inside their realm.
+    <span class="text-purple-light">↔</span> Knowledge graph links entities across realms.</code></pre>
+      </div>
+    </div>
+  </div>
+</section>

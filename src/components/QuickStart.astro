@@ -1,0 +1,52 @@
+---
+const commands = [
+  { comment: '# Install', cmd: 'npm i -g openoctopus' },
+  { comment: '# Initialize your life system', cmd: 'tentacle init' },
+  { comment: '# Create your first realm', cmd: 'tentacle realm create pet --template default' },
+  { comment: '# Summon your first entity', cmd: 'tentacle summon --realm pet --name "Momo" --type living' },
+];
+---
+
+<section id="quickstart" class="section-padding">
+  <div class="section-container">
+    <div class="text-center mb-16">
+      <h2 class="section-title">Quick Start</h2>
+      <p class="section-subtitle mx-auto">From zero to summoning in four commands.</p>
+    </div>
+
+    <div class="max-w-2xl mx-auto">
+      <div class="rounded-xl border border-border-dark/50 light:border-border-light/50 overflow-hidden">
+        <!-- Terminal header -->
+        <div class="flex items-center gap-2 px-4 py-3 bg-card-dark light:bg-gray-100 border-b border-border-dark/50 light:border-border-light/50">
+          <div class="flex gap-1.5">
+            <div class="w-3 h-3 rounded-full bg-red-500/70"></div>
+            <div class="w-3 h-3 rounded-full bg-yellow-500/70"></div>
+            <div class="w-3 h-3 rounded-full bg-green-500/70"></div>
+          </div>
+          <span class="text-xs text-text-secondary light:text-text-light-secondary ml-2 font-mono">terminal</span>
+        </div>
+
+        <!-- Terminal body -->
+        <div class="bg-abyss light:bg-gray-50 p-6 font-mono text-sm space-y-4">
+          {commands.map((c) => (
+            <div>
+              <div class="text-text-secondary/50 light:text-text-light-secondary/50 text-xs mb-1">{c.comment}</div>
+              <div class="flex items-center gap-2">
+                <span class="text-cyan select-none">$</span>
+                <span class="text-text-primary light:text-text-light-primary">{c.cmd}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Alternative install methods -->
+      <div class="flex flex-wrap justify-center gap-4 mt-8 text-sm text-text-secondary light:text-text-light-secondary">
+        <span>Also available via:</span>
+        <code class="font-mono text-cyan/80">pnpm add -g openoctopus</code>
+        <span class="text-border-dark light:text-border-light">|</span>
+        <code class="font-mono text-cyan/80">docker compose up</code>
+      </div>
+    </div>
+  </div>
+</section>

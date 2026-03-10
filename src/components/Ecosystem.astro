@@ -1,0 +1,31 @@
+---
+const components = [
+  { name: 'RealmHub', role: 'Realm marketplace', metaphor: 'Realm package hub', icon: '📦' },
+  { name: 'tentacle', role: 'CLI tool', metaphor: 'Tentacle = reach & touch', icon: '🦑' },
+  { name: 'ink', role: 'Agent gateway', metaphor: 'Ink = information flow', icon: '🖊️' },
+  { name: 'summon', role: 'Summon engine', metaphor: 'Core feature', icon: '✨' },
+  { name: 'The Reef', role: 'Community', metaphor: 'Coral reef = habitat', icon: '🪸' },
+  { name: 'REALM.md', role: 'Realm config', metaphor: 'Realm definition', icon: '📋' },
+  { name: 'SOUL.md', role: 'Entity persona', metaphor: 'Agent personality', icon: '👻' },
+];
+---
+
+<section class="section-padding">
+  <div class="section-container">
+    <div class="text-center mb-16">
+      <h2 class="section-title">Ecosystem</h2>
+      <p class="section-subtitle mx-auto">Every component has a name rooted in the octopus metaphor.</p>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
+      {components.map((c) => (
+        <div class="card text-center group">
+          <div class="text-2xl mb-2">{c.icon}</div>
+          <h3 class="font-bold text-sm text-text-primary light:text-text-light-primary font-mono">{c.name}</h3>
+          <p class="text-xs text-cyan/70 mt-1">{c.role}</p>
+          <p class="text-xs text-text-secondary/50 light:text-text-light-secondary/50 mt-1">{c.metaphor}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

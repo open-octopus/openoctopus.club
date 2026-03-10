@@ -1,0 +1,93 @@
+---
+import { Image } from 'astro:assets';
+import summonConcept from '../assets/brand/summon-concept.png';
+
+const entityTypes = [
+  { type: 'Living', icon: '🐾', examples: 'Pet, family, friend', ability: 'Personality, dialogue, emotions' },
+  { type: 'Asset', icon: '🚗', examples: 'Car, house, portfolio', ability: 'Status monitoring, cost reports' },
+  { type: 'Organization', icon: '🏢', examples: 'Company, hospital', ability: 'Process guides, contacts' },
+  { type: 'Abstract', icon: '🎯', examples: 'Goal, project, habit', ability: 'Progress tracking, alerts' },
+];
+
+const conversation = [
+  { name: 'You', icon: '👤', color: 'text-text-primary light:text-text-light-primary', msg: '"I\'m traveling for 5 days next week."' },
+  { name: 'Momo (Pet)', icon: '🐾', color: 'text-amber-400', msg: '"Who\'s going to feed me and walk me for 5 days?!"' },
+  { name: 'Mom (Parents)', icon: '👩', color: 'text-pink-400', msg: '"Mom could come take care of Momo — she wanted to visit anyway."' },
+  { name: 'Car (Vehicle)', icon: '🚗', color: 'text-blue-400', msg: '"Charge to full before departure? Or taxi to the airport?"' },
+  { name: 'Budget (Finance)', icon: '💰', color: 'text-green-400', msg: '"Trip budget estimate: $800. Remember to save receipts."' },
+];
+---
+
+<section id="summon" class="section-padding">
+  <div class="section-container">
+    <div class="text-center mb-16">
+      <h2 class="section-title">
+        <span class="gradient-text">Summon</span> — The Killer Feature
+      </h2>
+      <p class="section-subtitle mx-auto">
+        Turn data into a living agent. Your dog reminds you about vaccinations. Your mom suggests birthday gifts. Your car tracks maintenance costs.
+      </p>
+    </div>
+
+    <!-- Summon concept image -->
+    <div class="max-w-3xl mx-auto mb-16">
+      <div class="relative">
+        <div class="absolute inset-0 glow-cyan rounded-2xl"></div>
+        <Image
+          src={summonConcept}
+          alt="Summon: tentacle transforms a grey silhouette into a living agent"
+          class="rounded-2xl border border-border-dark/50 light:border-border-light/50 relative"
+          width={768}
+        />
+      </div>
+      <div class="text-center mt-6">
+        <code class="text-sm text-text-secondary light:text-text-light-secondary font-mono bg-card-dark/50 light:bg-card-light px-4 py-2 rounded-lg border border-border-dark/50 light:border-border-light/50">
+          Raw data → Structured Entity → <span class="text-cyan font-bold">SUMMON</span> → Agent with memory, personality &amp; initiative
+        </code>
+      </div>
+    </div>
+
+    <!-- Entity types -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
+      {entityTypes.map((e) => (
+        <div class="card text-center">
+          <div class="text-3xl mb-3">{e.icon}</div>
+          <h3 class="font-bold text-sm mb-1 text-text-primary light:text-text-light-primary">{e.type}</h3>
+          <p class="text-xs text-text-secondary light:text-text-light-secondary mb-2">{e.examples}</p>
+          <p class="text-xs text-cyan/70">{e.ability}</p>
+        </div>
+      ))}
+    </div>
+
+    <!-- Multi-agent conversation -->
+    <div class="max-w-2xl mx-auto">
+      <h3 class="text-lg font-bold text-center mb-6 text-text-primary light:text-text-light-primary">
+        Summoned agents talk to each other
+      </h3>
+      <div class="space-y-3">
+        {conversation.map((c, i) => (
+          <div class:list={['flex items-start gap-3 p-4 rounded-xl transition-all', i === 0 ? 'bg-card-dark/80 light:bg-card-light border border-border-dark/50 light:border-border-light/50' : 'bg-card-dark/30 light:bg-card-light/50 border border-border-dark/30 light:border-border-light/30']}>
+            <span class="text-2xl flex-shrink-0">{c.icon}</span>
+            <div>
+              <span class:list={['text-sm font-semibold', c.color]}>{c.name}</span>
+              <p class="text-sm text-text-secondary light:text-text-light-secondary mt-1">{c.msg}</p>
+            </div>
+          </div>
+        ))}
+        <!-- System summary -->
+        <div class="flex items-start gap-3 p-4 rounded-xl border-2 border-cyan/30 bg-cyan/5">
+          <span class="text-2xl flex-shrink-0">🐙</span>
+          <div>
+            <span class="text-sm font-semibold text-cyan">System</span>
+            <p class="text-sm text-text-secondary light:text-text-light-secondary mt-1">
+              "Here's your <strong class="text-text-primary light:text-text-light-primary">Trip Prep Checklist</strong>. Approve?"
+            </p>
+          </div>
+        </div>
+      </div>
+      <p class="text-center text-sm text-text-secondary/60 light:text-text-light-secondary/60 mt-6">
+        One sentence. Four realms. Zero manual coordination.
+      </p>
+    </div>
+  </div>
+</section>

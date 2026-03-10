@@ -1,0 +1,54 @@
+---
+import { Image } from 'astro:assets';
+import mascot from '../assets/brand/mascot.png';
+---
+
+<section class="section-padding">
+  <div class="section-container">
+    <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-12">
+      <!-- Mascot image -->
+      <div class="flex-shrink-0">
+        <div class="relative">
+          <div class="absolute inset-0 glow-purple rounded-full scale-110"></div>
+          <Image
+            src={mascot}
+            alt="Octo — the OpenOctopus mascot"
+            class="relative w-64 h-64 object-contain animate-float"
+            width={256}
+          />
+        </div>
+      </div>
+
+      <!-- Text -->
+      <div>
+        <h2 class="section-title">Meet Octo</h2>
+        <p class="text-text-secondary light:text-text-light-secondary leading-relaxed mb-6">
+          A deep-sea octopus. Calm, multi-threaded, quietly brilliant. Eight arms juggling your entire life while one brain keeps it all in sync. The tentacle tips glow cyan when summoning entities to life.
+        </p>
+        <blockquote class="border-l-2 border-purple pl-4 italic text-text-secondary/80 light:text-text-light-secondary/80">
+          "A deep-sea octopus, definitely."
+        </blockquote>
+
+        <!-- Personality pillars -->
+        <div class="grid grid-cols-2 gap-3 mt-6">
+          <div class="text-sm">
+            <span class="text-cyan font-semibold">Multi-tasker</span>
+            <p class="text-xs text-text-secondary/60 light:text-text-light-secondary/60">Watches all realms at once</p>
+          </div>
+          <div class="text-sm">
+            <span class="text-cyan font-semibold">Summoner</span>
+            <p class="text-xs text-text-secondary/60 light:text-text-light-secondary/60">Glowing tips bring entities to life</p>
+          </div>
+          <div class="text-sm">
+            <span class="text-cyan font-semibold">Reliable</span>
+            <p class="text-xs text-text-secondary/60 light:text-text-light-secondary/60">Steady, never rushed</p>
+          </div>
+          <div class="text-sm">
+            <span class="text-cyan font-semibold">Evolving</span>
+            <p class="text-xs text-text-secondary/60 light:text-text-light-secondary/60">Smartest invertebrate, always learning</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,48 @@
+---
+const steps = [
+  {
+    number: '01',
+    title: 'Create Realms',
+    description: 'Divide your life into autonomous domains. Pet, finance, work, legal — each realm runs independently with its own knowledge base and agent team.',
+    detail: 'tentacle realm create pet --template default',
+  },
+  {
+    number: '02',
+    title: 'Summon Entities',
+    description: 'Add entities to each realm and summon them. Your pet gets memory, personality, and proactive behavior. Your car tracks maintenance. Your goals track progress.',
+    detail: 'tentacle summon --realm pet --name "Momo" --type living',
+  },
+  {
+    number: '03',
+    title: 'Agents Collaborate',
+    description: 'Agents act autonomously within their realm. When cross-realm coordination is needed, the central brain steps in — like a real octopus.',
+    detail: '"I\'m going on vacation" → 4 realms respond simultaneously',
+  },
+];
+---
+
+<section class="section-padding">
+  <div class="section-container">
+    <div class="text-center mb-16">
+      <h2 class="section-title">How it works</h2>
+      <p class="section-subtitle mx-auto">Three steps. Eight arms. Every realm covered.</p>
+    </div>
+
+    <div class="max-w-3xl mx-auto space-y-8">
+      {steps.map((s, i) => (
+        <div class="card flex items-start gap-6 group">
+          <div class="flex-shrink-0 w-14 h-14 rounded-xl bg-summon-gradient flex items-center justify-center text-white font-bold text-lg">
+            {s.number}
+          </div>
+          <div class="flex-1">
+            <h3 class="text-xl font-bold text-text-primary light:text-text-light-primary mb-2">{s.title}</h3>
+            <p class="text-text-secondary light:text-text-light-secondary text-sm leading-relaxed mb-3">{s.description}</p>
+            <code class="text-xs text-cyan/80 font-mono bg-abyss/50 light:bg-surface/50 px-3 py-1.5 rounded-md border border-border-dark/30 light:border-border-light/30 inline-block">
+              {s.detail}
+            </code>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
