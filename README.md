@@ -41,6 +41,10 @@ pnpm preview    # preview built site
 
 ## Structure
 
+<p align="center">
+  <img src="docs/images/site-architecture.png" alt="openoctopus.club Site Architecture" width="800">
+</p>
+
 ```
 src/
 ├── assets/brand/         # Logo, mascot, banner, generated images
