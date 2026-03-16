@@ -15,7 +15,7 @@
   <a href="https://github.com/open-octopus/openoctopus">
     <img src="https://img.shields.io/badge/Core_Repo-OpenOctopus-6C3FA0?style=for-the-badge" alt="Core">
   </a>
-  <a href="https://discord.gg/openoctopus">
+  <a href="https://discord.gg/mwNTk8g5fV">
     <img src="https://img.shields.io/badge/Discord-The_Reef-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord">
   </a>
 </p>
