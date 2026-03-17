@@ -5,7 +5,7 @@
 <h3 align="center">openoctopus.club</h3>
 
 <p align="center">
-  Official landing page for <a href="https://github.com/open-octopus/openoctopus">OpenOctopus</a> — the realm-native life agent system.
+  Official landing page for <a href="https://github.com/open-octopus/openoctopus">OpenOctopus</a> — AI family home hub.
 </p>
 
 <p align="center">
