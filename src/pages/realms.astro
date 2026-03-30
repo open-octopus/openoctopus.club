@@ -1,0 +1,879 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+
+interface RealmData {
+  id: string;
+  name: string;
+  nameZh: string;
+  icon: string;
+  color: string;
+  desc: string;
+  descZh: string;
+  entities: string[];
+  entitiesZh: string[];
+  agent: string;
+  agentZh: string;
+  skills: string[];
+  rules: string[];
+  rulesZh: string[];
+}
+
+const realms: RealmData[] = [
+  { id: 'pet', name: 'Pet', nameZh: '宠物', icon: '🐙', color: '#06b6d4',
+    desc: 'Digital companions & real pet care', descZh: '数字伙伴与宠物护理',
+    entities: ['Octy — Digital Mascot', 'My Pet'], entitiesZh: ['Octy — 数字吉祥物', '我的宠物'],
+    agent: 'Pet Care Expert', agentZh: '宠物护理专家',
+    skills: ['vet-lookup', 'pet-schedule'],
+    rules: ['Weekly vet appointments', 'Monthly flea prevention'], rulesZh: ['每周兽医预约', '每月驱虫预防'] },
+  { id: 'parents', name: 'Parents', nameZh: '父母', icon: '👨‍👩‍👧', color: '#ec4899',
+    desc: 'Family elder care & connection', descZh: '长辈关怀与联系',
+    entities: ['Dad', 'Mom'], entitiesZh: ['爸爸', '妈妈'],
+    agent: 'Family Care Advisor', agentZh: '家庭护理顾问',
+    skills: ['health-monitor', 'medication-reminder', 'call-scheduler'],
+    rules: ['Weekly call suggestions', 'Monthly health review'], rulesZh: ['每周通话建议', '每月健康检查'] },
+  { id: 'finance', name: 'Finance', nameZh: '金融', icon: '💰', color: '#10b981',
+    desc: 'Budgeting, expenses & investments', descZh: '预算、开销与投资',
+    entities: ['Budget', 'Savings'], entitiesZh: ['预算', '储蓄'],
+    agent: 'Financial Advisor', agentZh: '财务顾问',
+    skills: ['budget-tracker', 'expense-analyzer', 'investment-monitor'],
+    rules: ['Monthly budget review', 'Weekly spending alert'], rulesZh: ['每月预算审查', '每周消费提醒'] },
+  { id: 'work', name: 'Work', nameZh: '工作', icon: '💼', color: '#3b82f6',
+    desc: 'Career management & productivity', descZh: '职业管理与效率',
+    entities: ['Career Profile'], entitiesZh: ['职业档案'],
+    agent: 'Career Coach', agentZh: '职业教练',
+    skills: ['meeting-prep', 'project-tracker', 'career-planner'],
+    rules: ['Weekly goal review', 'Monthly skill growth'], rulesZh: ['每周目标回顾', '每月技能提升'] },
+  { id: 'health', name: 'Health', nameZh: '健康', icon: '🏥', color: '#ef4444',
+    desc: 'Medical records & wellness', descZh: '医疗记录与健康管理',
+    entities: ['Medical Profile'], entitiesZh: ['健康档案'],
+    agent: 'Health Assistant', agentZh: '健康助手',
+    skills: ['symptom-checker', 'medication-tracker', 'appointment-manager'],
+    rules: ['Monthly medication refill', 'Quarterly checkup'], rulesZh: ['每月药物补充', '季度体检'] },
+  { id: 'fitness', name: 'Fitness', nameZh: '健身', icon: '💪', color: '#f97316',
+    desc: 'Exercise & nutrition tracking', descZh: '运动与营养追踪',
+    entities: ['Workout Plan'], entitiesZh: ['健身计划'],
+    agent: 'Fitness Trainer', agentZh: '健身教练',
+    skills: ['workout-logger', 'nutrition-calc'],
+    rules: ['Daily workout reminder', 'Weekly progress'], rulesZh: ['每日运动提醒', '每周进度'] },
+  { id: 'friends', name: 'Friends', nameZh: '朋友', icon: '👥', color: '#8b5cf6',
+    desc: 'Social relationships & events', descZh: '社交关系与活动',
+    entities: ['Friend Circle'], entitiesZh: ['朋友圈'],
+    agent: 'Social Coordinator', agentZh: '社交协调员',
+    skills: ['event-planner', 'birthday-reminder'],
+    rules: ['Weekly social check', 'Birthday alerts'], rulesZh: ['每周社交检查', '生日提醒'] },
+  { id: 'hobby', name: 'Hobby', nameZh: '爱好', icon: '🎨', color: '#f59e0b',
+    desc: 'Creative pursuits & learning', descZh: '创意追求与学习',
+    entities: ['Hobby Tracker'], entitiesZh: ['爱好追踪'],
+    agent: 'Creativity Guide', agentZh: '创意引导',
+    skills: ['skill-tracker', 'resource-finder'],
+    rules: ['Weekly practice reminder', 'Monthly milestone'], rulesZh: ['每周练习提醒', '每月里程碑'] },
+  { id: 'home', name: 'Home', nameZh: '家居', icon: '🏠', color: '#14b8a6',
+    desc: 'Home maintenance & smart living', descZh: '家居维护与智能生活',
+    entities: ['My Home'], entitiesZh: ['我的家'],
+    agent: 'Home Manager', agentZh: '家居管家',
+    skills: ['maintenance-scheduler', 'energy-monitor'],
+    rules: ['Monthly maintenance check', 'Seasonal inspection'], rulesZh: ['每月维护检查', '季节性巡检'] },
+  { id: 'legal', name: 'Legal', nameZh: '法务', icon: '⚖️', color: '#64748b',
+    desc: 'Documents & compliance', descZh: '文件与合规',
+    entities: ['Document Vault'], entitiesZh: ['文件库'],
+    agent: 'Legal Assistant', agentZh: '法务助手',
+    skills: ['document-manager', 'deadline-tracker'],
+    rules: ['Contract renewal alerts', 'Annual review'], rulesZh: ['合同续期提醒', '年度审查'] },
+  { id: 'partner', name: 'Partner', nameZh: '伴侣', icon: '❤️', color: '#f43f5e',
+    desc: 'Relationship & milestones', descZh: '感情关系与纪念日',
+    entities: ['Our Story'], entitiesZh: ['我们的故事'],
+    agent: 'Relationship Advisor', agentZh: '关系顾问',
+    skills: ['date-planner', 'anniversary-reminder'],
+    rules: ['Weekly date night ideas', 'Anniversary countdowns'], rulesZh: ['每周约会建议', '纪念日倒计时'] },
+  { id: 'vehicle', name: 'Vehicle', nameZh: '车辆', icon: '🚗', color: '#0ea5e9',
+    desc: 'Vehicle maintenance & trips', descZh: '车辆维护与出行',
+    entities: ['My Car'], entitiesZh: ['我的车'],
+    agent: 'Auto Assistant', agentZh: '汽车助手',
+    skills: ['maintenance-log', 'trip-planner'],
+    rules: ['Oil change reminders', 'Insurance renewal'], rulesZh: ['换油提醒', '保险续期'] },
+];
+
+// Compute constellation positions (percentage-based for responsiveness)
+const orbitRadius = 38;
+const positions = realms.map((realm, i) => {
+  const angle = (i * 30) * Math.PI / 180;
+  return {
+    ...realm,
+    cx: +(50 + orbitRadius * Math.sin(angle)).toFixed(2),
+    cy: +(50 - orbitRadius * Math.cos(angle)).toFixed(2),
+  };
+});
+---
+
+<Layout title="Realm Explorer — OpenOctopus">
+  <Header />
+  <main class="realms-page">
+    <!-- Starfield background -->
+    <div class="starfield" aria-hidden="true"></div>
+
+    <!-- Hero -->
+    <section class="rp-hero">
+      <p class="rp-badge">
+        <span class="en">12 Autonomous Domains</span>
+        <span class="zh">12 个自治域</span>
+      </p>
+      <h1>
+        <span class="en">Realm Explorer</span>
+        <span class="zh">域宇宙</span>
+      </h1>
+      <p class="rp-sub">
+        <span class="en">Each tentacle connects to an autonomous life domain — its own knowledge, agents, and skills.</span>
+        <span class="zh">每条触手连接一个自治生活域——拥有独立的知识库、Agent 和技能。</span>
+      </p>
+    </section>
+
+    <!-- Constellation Map (desktop) -->
+    <section class="rp-map">
+      <div class="constellation">
+        <!-- SVG connection lines -->
+        <svg class="constellation-svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+          {positions.map((r) => (
+            <line
+              x1="50" y1="50"
+              x2={r.cx} y2={r.cy}
+              stroke={r.color}
+              stroke-width="0.25"
+              stroke-opacity="0.35"
+              stroke-dasharray="1.5 1"
+              class="tentacle-line"
+            />
+          ))}
+          <!-- Orbit ring -->
+          <circle cx="50" cy="50" r={orbitRadius} fill="none" stroke="white" stroke-width="0.08" stroke-opacity="0.08" />
+        </svg>
+
+        <!-- Central brain -->
+        <div class="core-brain">
+          <span class="core-icon">🐙</span>
+          <span class="core-label">
+            <span class="en">Router</span>
+            <span class="zh">路由</span>
+          </span>
+        </div>
+
+        <!-- Realm orbs -->
+        {positions.map((r) => (
+          <button
+            class="realm-orb"
+            data-realm={r.id}
+            style={`left:${r.cx}%;top:${r.cy}%;--rc:${r.color}`}
+            aria-label={r.name}
+          >
+            <span class="orb-glow" aria-hidden="true"></span>
+            <span class="orb-icon">{r.icon}</span>
+            <span class="orb-name">
+              <span class="en">{r.name}</span>
+              <span class="zh">{r.nameZh}</span>
+            </span>
+          </button>
+        ))}
+      </div>
+
+      <!-- Mobile grid -->
+      <div class="realm-grid">
+        {realms.map((r) => (
+          <button class="realm-tile" data-realm={r.id} style={`--rc:${r.color}`}>
+            <span class="tile-icon">{r.icon}</span>
+            <span class="tile-name">
+              <span class="en">{r.name}</span>
+              <span class="zh">{r.nameZh}</span>
+            </span>
+          </button>
+        ))}
+      </div>
+    </section>
+
+    <!-- Detail panel -->
+    <section class="rp-detail" id="rp-detail">
+      <p class="detail-hint" id="detail-hint">
+        <span class="en">Click a realm to explore</span>
+        <span class="zh">点击一个域查看详情</span>
+      </p>
+
+      {positions.map((r) => (
+        <article class="detail-card" data-realm={r.id} style={`--rc:${r.color}`}>
+          <div class="dc-header">
+            <span class="dc-icon">{r.icon}</span>
+            <div class="dc-title">
+              <h3>
+                <span class="en">{r.name}</span>
+                <span class="zh">{r.nameZh}</span>
+              </h3>
+              <p>
+                <span class="en">{r.desc}</span>
+                <span class="zh">{r.descZh}</span>
+              </p>
+            </div>
+          </div>
+          <div class="dc-grid">
+            <div class="dc-section">
+              <h4><span class="en">Entities</span><span class="zh">实体</span></h4>
+              <ul>
+                {r.entities.map((e, idx) => (
+                  <li>
+                    <span class="en">{e}</span>
+                    <span class="zh">{r.entitiesZh[idx]}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div class="dc-section">
+              <h4>Agent</h4>
+              <p>
+                <span class="en">{r.agent}</span>
+                <span class="zh">{r.agentZh}</span>
+              </p>
+            </div>
+            <div class="dc-section">
+              <h4><span class="en">Skills</span><span class="zh">技能</span></h4>
+              <ul>
+                {r.skills.map((s) => (
+                  <li><code>{s}</code></li>
+                ))}
+              </ul>
+            </div>
+            <div class="dc-section">
+              <h4><span class="en">Proactive Rules</span><span class="zh">主动规则</span></h4>
+              <ul>
+                {r.rules.map((rule, idx) => (
+                  <li>
+                    <span class="en">{rule}</span>
+                    <span class="zh">{r.rulesZh[idx]}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </article>
+      ))}
+    </section>
+
+    <!-- Cross-realm connections -->
+    <section class="rp-connections">
+      <h2>
+        <span class="en">Cross-Realm Intelligence</span>
+        <span class="zh">跨域智能</span>
+      </h2>
+      <p class="rp-sub">
+        <span class="en">Realms don't operate in isolation — the central brain coordinates reactions across domains.</span>
+        <span class="zh">域不是孤立运作——中央大脑协调跨域反应。</span>
+      </p>
+      <div class="cross-cards">
+        <div class="cross-card">
+          <div class="cross-from">
+            <span>🐙</span>
+            <span class="en">Pet</span><span class="zh">宠物</span>
+          </div>
+          <span class="cross-arrow">→</span>
+          <div class="cross-to">
+            <span>💰</span>
+            <span class="en">Finance</span><span class="zh">金融</span>
+          </div>
+          <p class="cross-desc">
+            <span class="en">"Vet visit booked — $200 reserved from pet budget"</span>
+            <span class="zh">"兽医预约已确认——从宠物预算预留 ¥1,400"</span>
+          </p>
+        </div>
+        <div class="cross-card">
+          <div class="cross-from">
+            <span>👨‍👩‍👧</span>
+            <span class="en">Parents</span><span class="zh">父母</span>
+          </div>
+          <span class="cross-arrow">→</span>
+          <div class="cross-to">
+            <span>🏥</span>
+            <span class="en">Health</span><span class="zh">健康</span>
+          </div>
+          <p class="cross-desc">
+            <span class="en">"Dad's knee pain → appointment scheduled with ortho"</span>
+            <span class="zh">"爸爸膝盖疼 → 已预约骨科"</span>
+          </p>
+        </div>
+        <div class="cross-card">
+          <div class="cross-from">
+            <span>💼</span>
+            <span class="en">Work</span><span class="zh">工作</span>
+          </div>
+          <span class="cross-arrow">→</span>
+          <div class="cross-to">
+            <span>🚗</span>
+            <span class="en">Vehicle</span><span class="zh">车辆</span>
+          </div>
+          <p class="cross-desc">
+            <span class="en">"Business trip next week — car service reminder triggered"</span>
+            <span class="zh">"下周出差——已触发车辆保养提醒"</span>
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style is:inline>
+  @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&display=swap');
+
+  .realms-page {
+    --font-display: 'Rajdhani', sans-serif;
+    min-height: 100vh;
+    position: relative;
+    background: #0D1117;
+    color: #E6EDF3;
+  }
+
+  html.light .realms-page {
+    background: #F6F8FA;
+    color: #1F2328;
+  }
+
+  /* ── Starfield ────────────────────────────── */
+  .starfield {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background:
+      radial-gradient(ellipse at 25% 30%, rgba(108,63,160,0.07) 0%, transparent 50%),
+      radial-gradient(ellipse at 75% 70%, rgba(0,212,170,0.05) 0%, transparent 40%),
+      radial-gradient(ellipse at 50% 90%, rgba(30,58,95,0.08) 0%, transparent 45%);
+  }
+
+  .starfield::before,
+  .starfield::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 12% 18%, rgba(0,212,170,0.5) 50%, transparent 50%),
+      radial-gradient(1px 1px at 37% 62%, rgba(108,63,160,0.4) 50%, transparent 50%),
+      radial-gradient(1.5px 1.5px at 58% 8%, rgba(230,237,243,0.3) 50%, transparent 50%),
+      radial-gradient(1px 1px at 82% 35%, rgba(0,212,170,0.4) 50%, transparent 50%),
+      radial-gradient(1px 1px at 5% 78%, rgba(230,237,243,0.25) 50%, transparent 50%),
+      radial-gradient(1.5px 1.5px at 92% 82%, rgba(108,63,160,0.35) 50%, transparent 50%),
+      radial-gradient(1px 1px at 45% 45%, rgba(0,212,170,0.3) 50%, transparent 50%),
+      radial-gradient(1px 1px at 68% 52%, rgba(230,237,243,0.2) 50%, transparent 50%);
+  }
+
+  .starfield::after {
+    background-image:
+      radial-gradient(1px 1px at 20% 88%, rgba(0,212,170,0.3) 50%, transparent 50%),
+      radial-gradient(1.5px 1.5px at 72% 15%, rgba(230,237,243,0.35) 50%, transparent 50%),
+      radial-gradient(1px 1px at 48% 72%, rgba(108,63,160,0.3) 50%, transparent 50%),
+      radial-gradient(1px 1px at 88% 55%, rgba(0,212,170,0.4) 50%, transparent 50%),
+      radial-gradient(1px 1px at 15% 42%, rgba(230,237,243,0.2) 50%, transparent 50%),
+      radial-gradient(1.5px 1.5px at 62% 92%, rgba(108,63,160,0.25) 50%, transparent 50%);
+    animation: drift 60s linear infinite;
+  }
+
+  @keyframes drift {
+    0% { transform: translate(0, 0); }
+    50% { transform: translate(-8px, -12px); }
+    100% { transform: translate(0, 0); }
+  }
+
+  /* ── Hero ──────────────────────────────────── */
+  .rp-hero {
+    padding: 8rem 1.5rem 2rem;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .rp-badge {
+    display: inline-block;
+    padding: 0.375rem 1rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    border: 1px solid rgba(0,212,170,0.3);
+    color: #00D4AA;
+    background: rgba(0,212,170,0.06);
+    margin-bottom: 1.5rem;
+  }
+
+  .rp-hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 7vw, 4.5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, #6C3FA0 20%, #00D4AA 80%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 1rem;
+    line-height: 1.1;
+  }
+
+  .rp-sub {
+    color: #8B949E;
+    font-size: 1.05rem;
+    max-width: 34rem;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  html.light .rp-sub { color: #656D76; }
+
+  /* ── Constellation Map ────────────────────── */
+  .rp-map {
+    position: relative;
+    z-index: 1;
+    padding: 1rem 1.5rem 2rem;
+  }
+
+  .constellation {
+    position: relative;
+    width: min(78vw, 680px);
+    aspect-ratio: 1;
+    margin: 0 auto;
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .constellation { display: block; }
+    .realm-grid { display: none !important; }
+  }
+
+  .constellation-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .tentacle-line {
+    animation: line-pulse 4s ease-in-out infinite;
+    animation-delay: var(--d, 0s);
+  }
+
+  @keyframes line-pulse {
+    0%, 100% { stroke-opacity: 0.15; }
+    50% { stroke-opacity: 0.55; }
+  }
+
+  /* Stagger line pulse per realm */
+  .tentacle-line:nth-child(1) { --d: 0s; }
+  .tentacle-line:nth-child(2) { --d: 0.3s; }
+  .tentacle-line:nth-child(3) { --d: 0.6s; }
+  .tentacle-line:nth-child(4) { --d: 0.9s; }
+  .tentacle-line:nth-child(5) { --d: 1.2s; }
+  .tentacle-line:nth-child(6) { --d: 1.5s; }
+  .tentacle-line:nth-child(7) { --d: 1.8s; }
+  .tentacle-line:nth-child(8) { --d: 2.1s; }
+  .tentacle-line:nth-child(9) { --d: 2.4s; }
+  .tentacle-line:nth-child(10) { --d: 2.7s; }
+  .tentacle-line:nth-child(11) { --d: 3.0s; }
+  .tentacle-line:nth-child(12) { --d: 3.3s; }
+
+  /* Central brain */
+  .core-brain {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    background: rgba(108,63,160,0.12);
+    border: 2px solid rgba(108,63,160,0.35);
+    animation: brain-glow 5s ease-in-out infinite;
+    z-index: 5;
+  }
+
+  .core-icon { font-size: 2.2rem; line-height: 1; }
+  .core-label { font-size: 0.55rem; color: #8B949E; letter-spacing: 0.08em; text-transform: uppercase; }
+
+  @keyframes brain-glow {
+    0%, 100% {
+      box-shadow: 0 0 30px rgba(108,63,160,0.15), 0 0 60px rgba(108,63,160,0.05);
+    }
+    50% {
+      box-shadow: 0 0 50px rgba(108,63,160,0.3), 0 0 100px rgba(108,63,160,0.1);
+    }
+  }
+
+  html.light .core-brain {
+    background: rgba(108,63,160,0.08);
+    border-color: rgba(108,63,160,0.25);
+  }
+
+  /* Realm orbs */
+  .realm-orb {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    background: rgba(13,17,23,0.85);
+    border: 1.5px solid color-mix(in srgb, var(--rc) 35%, transparent);
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 4;
+    padding: 0;
+    outline: none;
+  }
+
+  .orb-glow {
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: radial-gradient(circle, color-mix(in srgb, var(--rc) 15%, transparent) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.35s;
+    pointer-events: none;
+  }
+
+  .realm-orb:hover {
+    transform: translate(-50%, -50%) scale(1.18);
+    border-color: var(--rc);
+    background: color-mix(in srgb, var(--rc) 8%, rgba(13,17,23,0.95));
+  }
+
+  .realm-orb:hover .orb-glow {
+    opacity: 1;
+  }
+
+  .realm-orb.selected {
+    transform: translate(-50%, -50%) scale(1.22);
+    border-color: var(--rc);
+    box-shadow: 0 0 24px color-mix(in srgb, var(--rc) 35%, transparent);
+    background: color-mix(in srgb, var(--rc) 12%, rgba(13,17,23,0.95));
+  }
+
+  .realm-orb.selected .orb-glow { opacity: 1; }
+
+  .orb-icon { font-size: 1.6rem; line-height: 1; }
+  .orb-name { font-size: 0.6rem; color: #8B949E; white-space: nowrap; }
+
+  html.light .realm-orb {
+    background: rgba(255,255,255,0.92);
+    border-color: color-mix(in srgb, var(--rc) 25%, #D0D7DE);
+  }
+  html.light .realm-orb:hover,
+  html.light .realm-orb.selected {
+    background: rgba(255,255,255,0.98);
+  }
+
+  /* ── Mobile grid ──────────────────────────── */
+  .realm-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.625rem;
+    max-width: 420px;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 768px) { .realm-grid { display: none; } }
+
+  .realm-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.875rem 0.5rem;
+    border-radius: 14px;
+    background: rgba(22,27,34,0.6);
+    border: 1px solid rgba(48,54,61,0.5);
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+
+  .tile-icon { font-size: 1.6rem; }
+  .tile-name { font-size: 0.7rem; color: #8B949E; }
+
+  .realm-tile:hover,
+  .realm-tile.selected {
+    border-color: var(--rc);
+    background: color-mix(in srgb, var(--rc) 8%, rgba(22,27,34,0.8));
+  }
+
+  .realm-tile.selected .tile-name { color: #E6EDF3; }
+
+  html.light .realm-tile {
+    background: rgba(255,255,255,0.8);
+    border-color: #D0D7DE;
+  }
+  html.light .realm-tile:hover,
+  html.light .realm-tile.selected {
+    background: white;
+  }
+
+  /* ── Detail panel ─────────────────────────── */
+  .rp-detail {
+    position: relative;
+    z-index: 1;
+    max-width: 780px;
+    margin: 1rem auto 4rem;
+    padding: 0 1.5rem;
+    min-height: 60px;
+  }
+
+  .detail-hint {
+    text-align: center;
+    color: #8B949E;
+    font-size: 0.85rem;
+    opacity: 0.7;
+  }
+
+  html.light .detail-hint { color: #656D76; }
+
+  .detail-card {
+    display: none;
+    animation: card-enter 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .detail-card.active { display: block; }
+
+  @keyframes card-enter {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .dc-header {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1.5rem 1.75rem;
+    border-radius: 16px 16px 0 0;
+    background: color-mix(in srgb, var(--rc) 6%, rgba(22,27,34,0.9));
+    border: 1px solid color-mix(in srgb, var(--rc) 25%, rgba(48,54,61,0.6));
+    border-bottom: none;
+  }
+
+  .dc-icon { font-size: 3rem; line-height: 1; }
+
+  .dc-title h3 {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #E6EDF3;
+    margin-bottom: 0.25rem;
+  }
+
+  .dc-title p { color: #8B949E; font-size: 0.875rem; }
+
+  html.light .dc-header {
+    background: color-mix(in srgb, var(--rc) 4%, rgba(255,255,255,0.95));
+    border-color: color-mix(in srgb, var(--rc) 15%, #D0D7DE);
+  }
+  html.light .dc-title h3 { color: #1F2328; }
+  html.light .dc-title p { color: #656D76; }
+
+  .dc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.25rem;
+    padding: 1.5rem 1.75rem;
+    border-radius: 0 0 16px 16px;
+    background: rgba(22,27,34,0.5);
+    border: 1px solid rgba(48,54,61,0.4);
+    border-top: none;
+  }
+
+  html.light .dc-grid {
+    background: rgba(255,255,255,0.85);
+    border-color: #D0D7DE;
+  }
+
+  .dc-section h4 {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #8B949E;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+
+  html.light .dc-section h4 { color: #656D76; }
+
+  .dc-section ul { list-style: none; padding: 0; margin: 0; }
+
+  .dc-section li {
+    font-size: 0.85rem;
+    color: #E6EDF3;
+    padding: 0.2rem 0;
+  }
+
+  .dc-section li::before {
+    content: '›';
+    color: var(--rc);
+    margin-right: 0.5rem;
+    font-weight: bold;
+  }
+
+  .dc-section p {
+    font-size: 0.85rem;
+    color: #E6EDF3;
+  }
+
+  html.light .dc-section li,
+  html.light .dc-section p { color: #1F2328; }
+
+  .dc-section code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    padding: 2px 7px;
+    background: rgba(0,212,170,0.08);
+    border: 1px solid rgba(0,212,170,0.15);
+    border-radius: 5px;
+    color: #00D4AA;
+  }
+
+  html.light .dc-section code {
+    background: rgba(0,212,170,0.06);
+    border-color: rgba(0,212,170,0.2);
+    color: #00A888;
+  }
+
+  /* ── Cross-realm section ──────────────────── */
+  .rp-connections {
+    position: relative;
+    z-index: 1;
+    max-width: 780px;
+    margin: 0 auto 5rem;
+    padding: 3rem 1.5rem;
+    text-align: center;
+  }
+
+  .rp-connections h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
+    font-weight: 700;
+    color: #E6EDF3;
+    margin-bottom: 0.75rem;
+  }
+
+  html.light .rp-connections h2 { color: #1F2328; }
+
+  .rp-connections .rp-sub { margin-bottom: 2.5rem; }
+
+  .cross-cards {
+    display: grid;
+    gap: 1rem;
+    text-align: left;
+  }
+
+  @media (min-width: 640px) {
+    .cross-cards { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .cross-card {
+    padding: 1.25rem;
+    border-radius: 14px;
+    background: rgba(22,27,34,0.5);
+    border: 1px solid rgba(48,54,61,0.4);
+    transition: border-color 0.3s;
+  }
+
+  .cross-card:hover {
+    border-color: rgba(0,212,170,0.3);
+  }
+
+  html.light .cross-card {
+    background: rgba(255,255,255,0.85);
+    border-color: #D0D7DE;
+  }
+
+  .cross-from, .cross-to {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #E6EDF3;
+  }
+
+  html.light .cross-from,
+  html.light .cross-to { color: #1F2328; }
+
+  .cross-arrow {
+    display: inline-block;
+    margin: 0 0.5rem;
+    color: #00D4AA;
+    font-weight: 700;
+  }
+
+  .cross-desc {
+    margin-top: 0.75rem;
+    font-size: 0.8rem;
+    color: #8B949E;
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  html.light .cross-desc { color: #4B5563; }
+
+  /* ── Light mode enhancements ─────────────── */
+  html.light .starfield { opacity: 0.3; }
+  html.light .rp-sub { color: #4B5563; }
+  html.light .rp-badge { color: #047857; border-color: rgba(16,185,129,0.4); background: rgba(16,185,129,0.08); }
+  html.light .core-label { color: #4B5563; }
+  html.light .orb-name { color: #374151; }
+  html.light .tile-name { color: #374151; }
+  html.light .realm-tile.selected .tile-name { color: #1F2328; }
+  html.light .detail-hint { color: #4B5563; }
+  html.light .dc-title p { color: #4B5563; }
+  html.light .dc-section h4 { color: #4B5563; }
+  html.light .cross-card { background: #F6F8FA; border-color: #D8DEE4; }
+  html.light .cross-card:hover { border-color: rgba(0,168,136,0.4); }
+  html.light .cross-from, html.light .cross-to { color: #1F2328; }
+  html.light .cross-arrow { color: #047857; }
+</style>
+
+<script is:inline>
+  (function () {
+    const orbs = document.querySelectorAll('.realm-orb');
+    const tiles = document.querySelectorAll('.realm-tile');
+    const details = document.querySelectorAll('.detail-card');
+    const hint = document.getElementById('detail-hint');
+
+    function selectRealm(id) {
+      // Clear
+      orbs.forEach(o => o.classList.remove('selected'));
+      tiles.forEach(t => t.classList.remove('selected'));
+      details.forEach(d => d.classList.remove('active'));
+
+      // Activate
+      const orb = document.querySelector(`.realm-orb[data-realm="${id}"]`);
+      const tile = document.querySelector(`.realm-tile[data-realm="${id}"]`);
+      const card = document.querySelector(`.detail-card[data-realm="${id}"]`);
+
+      orb?.classList.add('selected');
+      tile?.classList.add('selected');
+
+      if (card) {
+        card.classList.add('active');
+        if (hint) hint.style.display = 'none';
+        // Scroll detail into view on mobile
+        if (window.innerWidth < 768) {
+          card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      }
+    }
+
+    orbs.forEach(orb => {
+      orb.addEventListener('click', () => selectRealm(orb.dataset.realm));
+    });
+
+    tiles.forEach(tile => {
+      tile.addEventListener('click', () => selectRealm(tile.dataset.realm));
+    });
+  })();
+</script>

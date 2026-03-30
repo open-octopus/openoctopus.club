@@ -1,0 +1,894 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+
+const roles = [
+  { id: 'scheduler', name: 'Scheduler', nameZh: '调度员', icon: '📅', color: '#3b82f6',
+    desc: 'Books appointments, manages calendar, schedules events',
+    descZh: '预约挂号、管理日历、安排活动',
+    keywords: ['appointment', 'schedule', 'book', 'reserve', '预约', '挂号', '安排'] },
+  { id: 'caretaker', name: 'Caretaker', nameZh: '照料者', icon: '🛒', color: '#ec4899',
+    desc: 'Buys supplies, prepares meals, handles daily care needs',
+    descZh: '采购物资、准备餐食、处理日常照料需求',
+    keywords: ['buy', 'prepare', 'cook', 'shop', '买', '购买', '准备', '做饭'] },
+  { id: 'executor', name: 'Executor', nameZh: '执行者', icon: '🔧', color: '#f97316',
+    desc: 'Fixes things, drives, installs, handles physical tasks',
+    descZh: '修理东西、开车接送、安装设备、处理体力任务',
+    keywords: ['fix', 'repair', 'drive', 'install', '修', '修理', '开车', '安装'] },
+  { id: 'observer', name: 'Observer', nameZh: '观察者', icon: '👁️', color: '#8b5cf6',
+    desc: 'Monitors health, tracks progress, watches for changes',
+    descZh: '监测健康、跟踪进展、关注变化',
+    keywords: ['monitor', 'check', 'watch', 'track', '监测', '观察', '关注'] },
+  { id: 'coordinator', name: 'Coordinator', nameZh: '协调员', icon: '🤝', color: '#10b981',
+    desc: 'Organizes family efforts, communicates plans, aligns schedules',
+    descZh: '组织家庭行动、传达计划、协调时间表',
+    keywords: ['organize', 'plan', 'coordinate', 'communicate', '组织', '协调', '计划'] },
+];
+
+const scenario = {
+  message: "爷爷膝盖疼，需要预约医生，还要买药",
+  messageEn: "Grandpa's knee hurts, need to book a doctor and buy medicine",
+  analysis: [
+    { keyword: '预约', keywordEn: 'book', role: 'scheduler', color: '#3b82f6' },
+    { keyword: '买药', keywordEn: 'buy medicine', role: 'caretaker', color: '#ec4899' },
+  ],
+  actions: [
+    { member: 'Dad', memberZh: '爸爸', role: 'scheduler', roleZh: '调度员', icon: '📅',
+      action: 'Book orthopedic appointment for grandpa', actionZh: '为爷爷预约骨科',
+      priority: 'high', color: '#3b82f6' },
+    { member: 'Mom', memberZh: '妈妈', role: 'caretaker', roleZh: '照料者', icon: '🛒',
+      action: 'Buy knee pain medication', actionZh: '购买膝盖止痛药',
+      priority: 'normal', color: '#ec4899' },
+  ],
+};
+
+const members = [
+  { name: 'Dad', nameZh: '爸爸', icon: '👨', roles: ['scheduler', 'executor'],
+    realms: ['Parents', 'Vehicle'], realmsZh: ['父母', '车辆'] },
+  { name: 'Mom', nameZh: '妈妈', icon: '👩', roles: ['caretaker', 'coordinator'],
+    realms: ['Parents', 'Finance'], realmsZh: ['父母', '金融'] },
+  { name: 'Me', nameZh: '我', icon: '🧑', roles: ['observer', 'coordinator'],
+    realms: ['Pet', 'Work', 'Health'], realmsZh: ['宠物', '工作', '健康'] },
+];
+---
+
+<Layout title="Family Hub — OpenOctopus">
+  <Header />
+  <main class="family-page">
+    <!-- Warm ambient -->
+    <div class="warm-ambient" aria-hidden="true"></div>
+
+    <!-- Hero -->
+    <section class="fh-hero">
+      <p class="fh-badge">
+        <span class="en">Family Role System</span>
+        <span class="zh">家庭角色系统</span>
+      </p>
+      <h1>
+        <span class="en">Family Hub</span>
+        <span class="zh">家庭中心</span>
+      </h1>
+      <p class="fh-sub">
+        <span class="en">AI doesn't just answer — it assigns. Automatically route tasks to the right family member based on their role.</span>
+        <span class="zh">AI 不只是回答——它会分配。根据家庭成员的角色自动将任务分配给合适的人。</span>
+      </p>
+    </section>
+
+    <!-- 5 Roles -->
+    <section class="fh-roles">
+      <h2>
+        <span class="en">Five Roles</span>
+        <span class="zh">五大角色</span>
+      </h2>
+      <div class="roles-ring">
+        {roles.map((role) => (
+          <div class="role-node" style={`--rc:${role.color}`}>
+            <div class="role-icon">{role.icon}</div>
+            <h3>
+              <span class="en">{role.name}</span>
+              <span class="zh">{role.nameZh}</span>
+            </h3>
+            <p>
+              <span class="en">{role.desc}</span>
+              <span class="zh">{role.descZh}</span>
+            </p>
+            <div class="role-keywords">
+              {role.keywords.slice(0, 4).map((kw) => (
+                <span class="kw-tag">{kw}</span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Scenario walkthrough -->
+    <section class="fh-scenario">
+      <h2>
+        <span class="en">How It Works</span>
+        <span class="zh">运作原理</span>
+      </h2>
+      <p class="fh-sub">
+        <span class="en">One message triggers intelligent role routing across your family.</span>
+        <span class="zh">一条消息触发智能家庭角色路由。</span>
+      </p>
+
+      <div class="scenario-flow">
+        <!-- Step 1: Message -->
+        <div class="flow-step" data-step="1">
+          <div class="step-badge">1</div>
+          <div class="step-card step-message">
+            <h4><span class="en">Message Received</span><span class="zh">收到消息</span></h4>
+            <div class="msg-bubble">
+              <span class="en">"{scenario.messageEn}"</span>
+              <span class="zh">"{scenario.message}"</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Arrow -->
+        <div class="flow-arrow">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 5v14M5 12l7 7 7-7" />
+          </svg>
+        </div>
+
+        <!-- Step 2: Analysis -->
+        <div class="flow-step" data-step="2">
+          <div class="step-badge">2</div>
+          <div class="step-card step-analysis">
+            <h4><span class="en">Keyword + LLM Analysis</span><span class="zh">关键词 + LLM 分析</span></h4>
+            <div class="analysis-tags">
+              {scenario.analysis.map((a) => (
+                <div class="analysis-tag" style={`--rc:${a.color}`}>
+                  <span class="tag-keyword">
+                    <span class="en">"{a.keywordEn}"</span>
+                    <span class="zh">"{a.keyword}"</span>
+                  </span>
+                  <span class="tag-arrow">→</span>
+                  <span class="tag-role">{a.role}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <!-- Arrow -->
+        <div class="flow-arrow">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 5v14M5 12l7 7 7-7" />
+          </svg>
+        </div>
+
+        <!-- Step 3: Actions -->
+        <div class="flow-step" data-step="3">
+          <div class="step-badge">3</div>
+          <div class="step-card step-actions">
+            <h4><span class="en">Tasks Assigned</span><span class="zh">任务已分配</span></h4>
+            <div class="action-list">
+              {scenario.actions.map((action) => (
+                <div class="action-item" style={`--rc:${action.color}`}>
+                  <div class="action-left">
+                    <span class="action-icon">{action.icon}</span>
+                    <div>
+                      <span class="action-member">
+                        <span class="en">{action.member}</span>
+                        <span class="zh">{action.memberZh}</span>
+                      </span>
+                      <span class="action-role">
+                        <span class="en">{action.role}</span>
+                        <span class="zh">{action.roleZh}</span>
+                      </span>
+                    </div>
+                  </div>
+                  <p class="action-text">
+                    <span class="en">{action.action}</span>
+                    <span class="zh">{action.actionZh}</span>
+                  </p>
+                  <span class="action-priority" data-priority={action.priority}>
+                    {action.priority}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Family members -->
+    <section class="fh-members">
+      <h2>
+        <span class="en">Family Members & Roles</span>
+        <span class="zh">家庭成员与角色</span>
+      </h2>
+      <p class="fh-sub">
+        <span class="en">Each member has roles and responsible realms. One person can hold multiple roles.</span>
+        <span class="zh">每位成员有自己的角色和负责域。一个人可以身兼多个角色。</span>
+      </p>
+
+      <div class="members-grid">
+        {members.map((m) => (
+          <div class="member-card">
+            <div class="member-avatar">{m.icon}</div>
+            <h3>
+              <span class="en">{m.name}</span>
+              <span class="zh">{m.nameZh}</span>
+            </h3>
+            <div class="member-roles">
+              {m.roles.map((roleId) => {
+                const role = roles.find(r => r.id === roleId)!;
+                return (
+                  <span class="member-role-tag" style={`--rc:${role.color}`}>
+                    {role.icon}
+                    <span class="en">{role.name}</span>
+                    <span class="zh">{role.nameZh}</span>
+                  </span>
+                );
+              })}
+            </div>
+            <div class="member-realms">
+              <span class="realm-label">
+                <span class="en">Realms</span>
+                <span class="zh">负责域</span>
+              </span>
+              {m.realms.map((realm, i) => (
+                <span class="realm-chip">
+                  <span class="en">{realm}</span>
+                  <span class="zh">{m.realmsZh[i]}</span>
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Action lifecycle -->
+    <section class="fh-lifecycle">
+      <h2>
+        <span class="en">Action Lifecycle</span>
+        <span class="zh">行动生命周期</span>
+      </h2>
+      <div class="lifecycle-flow">
+        <div class="lc-step lc-pending">
+          <div class="lc-dot"></div>
+          <span class="lc-label">
+            <span class="en">Pending</span>
+            <span class="zh">待处理</span>
+          </span>
+          <p>
+            <span class="en">Task created and assigned</span>
+            <span class="zh">任务已创建并分配</span>
+          </p>
+        </div>
+        <div class="lc-arrow">→</div>
+        <div class="lc-step lc-progress">
+          <div class="lc-dot"></div>
+          <span class="lc-label">
+            <span class="en">In Progress</span>
+            <span class="zh">进行中</span>
+          </span>
+          <p>
+            <span class="en">Member working on it</span>
+            <span class="zh">成员正在处理</span>
+          </p>
+        </div>
+        <div class="lc-arrow">→</div>
+        <div class="lc-step lc-done">
+          <div class="lc-dot"></div>
+          <span class="lc-label">
+            <span class="en">Done</span>
+            <span class="zh">已完成</span>
+          </span>
+          <p>
+            <span class="en">Marked complete</span>
+            <span class="zh">标记完成</span>
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style is:inline>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+
+  .family-page {
+    --font-display: 'Nunito', sans-serif;
+    --amber: #f59e0b;
+    --amber-dim: rgba(245,158,11,0.15);
+    min-height: 100vh;
+    position: relative;
+    background: #0D1117;
+    color: #E6EDF3;
+  }
+
+  html.light .family-page {
+    background: #F6F8FA;
+    color: #1F2328;
+  }
+
+  /* ── Warm ambient ─────────────────────────── */
+  .warm-ambient {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background:
+      radial-gradient(ellipse at 50% 20%, rgba(245,158,11,0.05) 0%, transparent 50%),
+      radial-gradient(ellipse at 30% 70%, rgba(236,72,153,0.03) 0%, transparent 40%),
+      radial-gradient(ellipse at 70% 80%, rgba(59,130,246,0.03) 0%, transparent 40%);
+  }
+
+  /* ── Hero ──────────────────────────────────── */
+  .fh-hero {
+    padding: 8rem 1.5rem 3rem;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .fh-badge {
+    display: inline-block;
+    padding: 0.375rem 1rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    border: 1px solid rgba(245,158,11,0.3);
+    color: var(--amber);
+    background: var(--amber-dim);
+    margin-bottom: 1.5rem;
+  }
+
+  .fh-hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 7vw, 4.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, #f59e0b 20%, #ec4899 50%, #3b82f6 80%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 1rem;
+    line-height: 1.1;
+  }
+
+  .fh-sub {
+    color: #8B949E;
+    font-size: 1.05rem;
+    max-width: 34rem;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  html.light .fh-sub { color: #656D76; }
+
+  /* ── Roles section ────────────────────────── */
+  .fh-roles {
+    position: relative;
+    z-index: 1;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 3rem;
+  }
+
+  .fh-roles h2,
+  .fh-scenario h2,
+  .fh-members h2,
+  .fh-lifecycle h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 800;
+    color: #E6EDF3;
+    text-align: center;
+    margin-bottom: 0.75rem;
+  }
+
+  html.light .fh-roles h2,
+  html.light .fh-scenario h2,
+  html.light .fh-members h2,
+  html.light .fh-lifecycle h2 { color: #1F2328; }
+
+  .roles-ring {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .role-node {
+    padding: 1.5rem 1.25rem;
+    border-radius: 16px;
+    background: rgba(22,27,34,0.6);
+    border: 1px solid rgba(48,54,61,0.5);
+    text-align: center;
+    transition: all 0.3s;
+  }
+
+  .role-node:hover {
+    border-color: color-mix(in srgb, var(--rc) 40%, transparent);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px color-mix(in srgb, var(--rc) 10%, transparent);
+  }
+
+  html.light .role-node {
+    background: rgba(255,255,255,0.85);
+    border-color: #D0D7DE;
+  }
+
+  html.light .role-node:hover {
+    border-color: color-mix(in srgb, var(--rc) 30%, #D0D7DE);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  }
+
+  .role-icon {
+    font-size: 2.2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .role-node h3 {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #E6EDF3;
+    margin-bottom: 0.4rem;
+  }
+
+  html.light .role-node h3 { color: #1F2328; }
+
+  .role-node p {
+    font-size: 0.78rem;
+    color: #8B949E;
+    line-height: 1.45;
+    margin-bottom: 0.75rem;
+  }
+
+  html.light .role-node p { color: #656D76; }
+
+  .role-keywords {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    justify-content: center;
+  }
+
+  .kw-tag {
+    font-size: 0.62rem;
+    font-family: 'JetBrains Mono', monospace;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: color-mix(in srgb, var(--rc) 10%, transparent);
+    color: var(--rc);
+    border: 1px solid color-mix(in srgb, var(--rc) 15%, transparent);
+  }
+
+  /* ── Scenario ─────────────────────────────── */
+  .fh-scenario {
+    position: relative;
+    z-index: 1;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+  }
+
+  .fh-scenario .fh-sub {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .scenario-flow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .flow-step {
+    width: 100%;
+    position: relative;
+    animation: step-in 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
+  }
+
+  .flow-step[data-step="1"] { animation-delay: 0.1s; }
+  .flow-step[data-step="2"] { animation-delay: 0.3s; }
+  .flow-step[data-step="3"] { animation-delay: 0.5s; }
+
+  @keyframes step-in {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .step-badge {
+    position: absolute;
+    left: -8px;
+    top: -8px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--amber);
+    color: #0D1117;
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+  }
+
+  .step-card {
+    padding: 1.25rem 1.5rem;
+    border-radius: 14px;
+    background: rgba(22,27,34,0.7);
+    border: 1px solid rgba(48,54,61,0.5);
+  }
+
+  html.light .step-card {
+    background: rgba(255,255,255,0.9);
+    border-color: #D0D7DE;
+  }
+
+  .step-card h4 {
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--amber);
+    margin-bottom: 0.75rem;
+  }
+
+  .flow-arrow {
+    color: rgba(245,158,11,0.4);
+    padding: 0.25rem 0;
+  }
+
+  /* Message bubble */
+  .msg-bubble {
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    background: rgba(245,158,11,0.08);
+    border: 1px solid rgba(245,158,11,0.2);
+    font-size: 0.9rem;
+    color: #E6EDF3;
+    font-style: italic;
+  }
+
+  html.light .msg-bubble {
+    background: rgba(245,158,11,0.06);
+    color: #1F2328;
+  }
+
+  /* Analysis tags */
+  .analysis-tags {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .analysis-tag {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    background: color-mix(in srgb, var(--rc) 6%, rgba(22,27,34,0.6));
+    border: 1px solid color-mix(in srgb, var(--rc) 15%, transparent);
+  }
+
+  html.light .analysis-tag {
+    background: color-mix(in srgb, var(--rc) 5%, white);
+    border-color: color-mix(in srgb, var(--rc) 12%, #D0D7DE);
+  }
+
+  .tag-keyword {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--rc);
+    font-weight: 600;
+  }
+
+  .tag-arrow { color: #8B949E; font-size: 0.8rem; }
+
+  .tag-role {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #E6EDF3;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: color-mix(in srgb, var(--rc) 20%, transparent);
+  }
+
+  html.light .tag-role { color: #1F2328; }
+
+  /* Action list */
+  .action-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+
+  .action-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    border-left: 3px solid var(--rc);
+    background: color-mix(in srgb, var(--rc) 4%, rgba(22,27,34,0.5));
+    flex-wrap: wrap;
+  }
+
+  html.light .action-item {
+    background: color-mix(in srgb, var(--rc) 3%, white);
+  }
+
+  .action-left {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .action-icon { font-size: 1.2rem; }
+
+  .action-member {
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: #E6EDF3;
+    display: block;
+  }
+
+  html.light .action-member { color: #1F2328; }
+
+  .action-role {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--rc);
+    font-weight: 600;
+  }
+
+  .action-text {
+    font-size: 0.82rem;
+    color: #8B949E;
+    flex: 1;
+    min-width: 120px;
+  }
+
+  html.light .action-text { color: #656D76; }
+
+  .action-priority {
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+
+  .action-priority[data-priority="high"] {
+    background: rgba(239,68,68,0.15);
+    color: #ef4444;
+  }
+
+  .action-priority[data-priority="normal"] {
+    background: rgba(59,130,246,0.12);
+    color: #60a5fa;
+  }
+
+  /* ── Family members ───────────────────────── */
+  .fh-members {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+  }
+
+  .fh-members .fh-sub {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .members-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+
+  .member-card {
+    padding: 1.5rem;
+    border-radius: 16px;
+    background: rgba(22,27,34,0.6);
+    border: 1px solid rgba(48,54,61,0.5);
+    text-align: center;
+    transition: all 0.3s;
+  }
+
+  .member-card:hover {
+    border-color: rgba(245,158,11,0.3);
+    transform: translateY(-2px);
+  }
+
+  html.light .member-card {
+    background: rgba(255,255,255,0.85);
+    border-color: #D0D7DE;
+  }
+
+  .member-avatar {
+    font-size: 3rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .member-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #E6EDF3;
+    margin-bottom: 0.75rem;
+  }
+
+  html.light .member-card h3 { color: #1F2328; }
+
+  .member-roles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+
+  .member-role-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 6px;
+    background: color-mix(in srgb, var(--rc) 12%, transparent);
+    color: var(--rc);
+    border: 1px solid color-mix(in srgb, var(--rc) 18%, transparent);
+  }
+
+  .member-realms {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .realm-label {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #8B949E;
+    font-weight: 600;
+    margin-right: 0.25rem;
+  }
+
+  .realm-chip {
+    font-size: 0.65rem;
+    padding: 2px 7px;
+    border-radius: 4px;
+    background: rgba(0,212,170,0.08);
+    color: #00D4AA;
+    border: 1px solid rgba(0,212,170,0.15);
+  }
+
+  html.light .realm-chip {
+    background: rgba(0,212,170,0.06);
+    color: #00A888;
+  }
+
+  /* ── Action lifecycle ─────────────────────── */
+  .fh-lifecycle {
+    position: relative;
+    z-index: 1;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 5rem;
+    text-align: center;
+  }
+
+  .lifecycle-flow {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .lc-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1.25rem 1rem;
+    border-radius: 12px;
+    background: rgba(22,27,34,0.5);
+    border: 1px solid rgba(48,54,61,0.4);
+    min-width: 140px;
+    flex: 1;
+  }
+
+  html.light .lc-step {
+    background: rgba(255,255,255,0.8);
+    border-color: #D0D7DE;
+  }
+
+  .lc-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+
+  .lc-pending .lc-dot { background: var(--amber); }
+  .lc-progress .lc-dot { background: #3b82f6; animation: pulse-dot 2s infinite; }
+  .lc-done .lc-dot { background: #10b981; }
+
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .lc-label {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #E6EDF3;
+  }
+
+  html.light .lc-label { color: #1F2328; }
+
+  .lc-step p {
+    font-size: 0.72rem;
+    color: #8B949E;
+  }
+
+  html.light .lc-step p { color: #656D76; }
+
+  .lc-arrow {
+    color: rgba(245,158,11,0.4);
+    font-size: 1.2rem;
+    padding-top: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  /* ── Light mode enhancements ─────────────── */
+  html.light .fh-sub { color: #4B5563; }
+  html.light .fh-badge { color: #B45309; border-color: rgba(180,83,9,0.3); background: rgba(245,158,11,0.08); }
+  html.light .role-node { background: #FFFFFF; border-color: #D8DEE4; }
+  html.light .role-node:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+  html.light .role-node h3 { color: #1F2328; }
+  html.light .role-node p { color: #4B5563; }
+  html.light .kw-tag { background: color-mix(in srgb, var(--rc) 8%, #F6F8FA); border-color: color-mix(in srgb, var(--rc) 25%, #D8DEE4); }
+  html.light .step-card { background: #FFFFFF; border-color: #D8DEE4; }
+  html.light .msg-bubble { background: rgba(245,158,11,0.06); border-color: rgba(245,158,11,0.25); color: #1F2328; }
+  html.light .analysis-tag { background: color-mix(in srgb, var(--rc) 4%, #F6F8FA); border-color: color-mix(in srgb, var(--rc) 15%, #D8DEE4); }
+  html.light .tag-arrow { color: #4B5563; }
+  html.light .tag-role { color: #1F2328; background: color-mix(in srgb, var(--rc) 12%, #F6F8FA); }
+  html.light .action-item { background: color-mix(in srgb, var(--rc) 3%, #FAFBFC); }
+  html.light .action-member { color: #1F2328; }
+  html.light .action-text { color: #4B5563; }
+  html.light .action-priority[data-priority="high"] { background: rgba(220,38,38,0.08); color: #dc2626; }
+  html.light .action-priority[data-priority="normal"] { background: rgba(37,99,235,0.08); color: #2563eb; }
+  html.light .member-card { background: #FFFFFF; border-color: #D8DEE4; }
+  html.light .member-card:hover { border-color: rgba(180,83,9,0.3); box-shadow: 0 4px 16px rgba(0,0,0,0.05); }
+  html.light .member-card h3 { color: #1F2328; }
+  html.light .member-role-tag { background: color-mix(in srgb, var(--rc) 8%, #F6F8FA); border-color: color-mix(in srgb, var(--rc) 25%, #D8DEE4); }
+  html.light .realm-label { color: #4B5563; }
+  html.light .realm-chip { background: rgba(0,168,136,0.06); border-color: rgba(0,168,136,0.25); color: #047857; }
+  html.light .lc-step { background: #FFFFFF; border-color: #D8DEE4; }
+  html.light .lc-label { color: #1F2328; }
+  html.light .lc-step p { color: #4B5563; }
+  html.light .lc-arrow { color: rgba(180,83,9,0.5); }
+  html.light .flow-arrow { color: rgba(180,83,9,0.5); }
+</style>
