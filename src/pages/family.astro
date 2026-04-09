@@ -50,6 +50,12 @@ const members = [
   { name: 'Me', nameZh: '我', icon: '🧑', roles: ['observer', 'coordinator'],
     realms: ['Pet', 'Work', 'Health'], realmsZh: ['宠物', '工作', '健康'] },
 ];
+
+const lifecycleSteps = [
+  { key: 'pending', color: 'var(--amber)', en: 'Pending', zh: '待处理', descEn: 'Task created and assigned', descZh: '任务已创建并分配' },
+  { key: 'progress', color: '#3b82f6', en: 'In Progress', zh: '进行中', descEn: 'Member working on it', descZh: '成员正在处理' },
+  { key: 'done', color: '#10b981', en: 'Done', zh: '已完成', descEn: 'Marked complete', descZh: '标记完成' },
+];
 ---
 
 <Layout title="Family Hub — OpenOctopus">
@@ -59,12 +65,12 @@ const members = [
     <div class="warm-ambient" aria-hidden="true"></div>
 
     <!-- Hero -->
-    <section class="fh-hero">
+    <section class="fh-hero" aria-labelledby="family-hub-title">
       <p class="fh-badge">
         <span class="en">Family Role System</span>
         <span class="zh">家庭角色系统</span>
       </p>
-      <h1>
+      <h1 id="family-hub-title">
         <span class="en">Family Hub</span>
         <span class="zh">家庭中心</span>
       </h1>
@@ -75,14 +81,14 @@ const members = [
     </section>
 
     <!-- 5 Roles -->
-    <section class="fh-roles">
-      <h2>
+    <section class="fh-roles" aria-labelledby="five-roles-title">
+      <h2 id="five-roles-title">
         <span class="en">Five Roles</span>
         <span class="zh">五大角色</span>
       </h2>
       <div class="roles-ring">
         {roles.map((role) => (
-          <div class="role-node" style={`--rc:${role.color}`}>
+          <article class="role-node" style={`--rc:${role.color}`} tabindex="0" aria-label={`${role.name} ${role.nameZh}`}>
             <div class="role-icon">{role.icon}</div>
             <h3>
               <span class="en">{role.name}</span>
@@ -97,14 +103,14 @@ const members = [
                 <span class="kw-tag">{kw}</span>
               ))}
             </div>
-          </div>
+          </article>
         ))}
       </div>
     </section>
 
     <!-- Scenario walkthrough -->
-    <section class="fh-scenario">
-      <h2>
+    <section class="fh-scenario" aria-labelledby="how-it-works-title">
+      <h2 id="how-it-works-title">
         <span class="en">How It Works</span>
         <span class="zh">运作原理</span>
       </h2>
@@ -127,7 +133,7 @@ const members = [
         </div>
 
         <!-- Arrow -->
-        <div class="flow-arrow">
+        <div class="flow-arrow" aria-hidden="true">
           <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M12 5v14M5 12l7 7 7-7" />
           </svg>
@@ -145,7 +151,7 @@ const members = [
                     <span class="en">"{a.keywordEn}"</span>
                     <span class="zh">"{a.keyword}"</span>
                   </span>
-                  <span class="tag-arrow">→</span>
+                  <span class="tag-arrow" aria-hidden="true">→</span>
                   <span class="tag-role">{a.role}</span>
                 </div>
               ))}
@@ -154,7 +160,7 @@ const members = [
         </div>
 
         <!-- Arrow -->
-        <div class="flow-arrow">
+        <div class="flow-arrow" aria-hidden="true">
           <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M12 5v14M5 12l7 7 7-7" />
           </svg>
@@ -197,8 +203,8 @@ const members = [
     </section>
 
     <!-- Family members -->
-    <section class="fh-members">
-      <h2>
+    <section class="fh-members" aria-labelledby="family-members-title">
+      <h2 id="family-members-title">
         <span class="en">Family Members & Roles</span>
         <span class="zh">家庭成员与角色</span>
       </h2>
@@ -209,7 +215,7 @@ const members = [
 
       <div class="members-grid">
         {members.map((m) => (
-          <div class="member-card">
+          <article class="member-card" aria-label={`${m.name} ${m.nameZh}`}>
             <div class="member-avatar">{m.icon}</div>
             <h3>
               <span class="en">{m.name}</span>
@@ -239,54 +245,37 @@ const members = [
                 </span>
               ))}
             </div>
-          </div>
+          </article>
         ))}
       </div>
     </section>
 
     <!-- Action lifecycle -->
-    <section class="fh-lifecycle">
-      <h2>
+    <section class="fh-lifecycle" aria-labelledby="action-lifecycle-title">
+      <h2 id="action-lifecycle-title">
         <span class="en">Action Lifecycle</span>
         <span class="zh">行动生命周期</span>
       </h2>
-      <div class="lifecycle-flow">
-        <div class="lc-step lc-pending">
-          <div class="lc-dot"></div>
-          <span class="lc-label">
-            <span class="en">Pending</span>
-            <span class="zh">待处理</span>
-          </span>
-          <p>
-            <span class="en">Task created and assigned</span>
-            <span class="zh">任务已创建并分配</span>
-          </p>
-        </div>
-        <div class="lc-arrow">→</div>
-        <div class="lc-step lc-progress">
-          <div class="lc-dot"></div>
-          <span class="lc-label">
-            <span class="en">In Progress</span>
-            <span class="zh">进行中</span>
-          </span>
-          <p>
-            <span class="en">Member working on it</span>
-            <span class="zh">成员正在处理</span>
-          </p>
-        </div>
-        <div class="lc-arrow">→</div>
-        <div class="lc-step lc-done">
-          <div class="lc-dot"></div>
-          <span class="lc-label">
-            <span class="en">Done</span>
-            <span class="zh">已完成</span>
-          </span>
-          <p>
-            <span class="en">Marked complete</span>
-            <span class="zh">标记完成</span>
-          </p>
-        </div>
-      </div>
+      <ol class="lifecycle-flow" role="list">
+        {lifecycleSteps.map((step, index) => (
+          <>
+            <li class={`lc-step lc-${step.key}`}>
+              <div class="lc-dot" style={`background:${step.color}`}></div>
+              <span class="lc-label">
+                <span class="en">{step.en}</span>
+                <span class="zh">{step.zh}</span>
+              </span>
+              <p>
+                <span class="en">{step.descEn}</span>
+                <span class="zh">{step.descZh}</span>
+              </p>
+            </li>
+            {index < lifecycleSteps.length - 1 && (
+              <li class="lc-arrow" aria-hidden="true">→</li>
+            )}
+          </>
+        ))}
+      </ol>
     </section>
   </main>
 </Layout>
@@ -298,15 +287,23 @@ const members = [
     --font-display: 'Nunito', sans-serif;
     --amber: #f59e0b;
     --amber-dim: rgba(245,158,11,0.15);
+    --bg-page: #0D1117;
+    --text-primary: #E6EDF3;
+    --text-secondary: #8B949E;
+    --card-bg: rgba(22,27,34,0.6);
+    --card-border: rgba(48,54,61,0.5);
     min-height: 100vh;
     position: relative;
-    background: #0D1117;
-    color: #E6EDF3;
+    background: var(--bg-page);
+    color: var(--text-primary);
   }
 
   html.light .family-page {
-    background: #F6F8FA;
-    color: #1F2328;
+    --bg-page: #F6F8FA;
+    --text-primary: #1F2328;
+    --text-secondary: #656D76;
+    --card-bg: rgba(255,255,255,0.85);
+    --card-border: #D0D7DE;
   }
 
   /* ── Warm ambient ─────────────────────────── */
@@ -342,6 +339,12 @@ const members = [
     margin-bottom: 1.5rem;
   }
 
+  html.light .fh-badge {
+    color: #B45309;
+    border-color: rgba(180,83,9,0.3);
+    background: rgba(245,158,11,0.08);
+  }
+
   .fh-hero h1 {
     font-family: var(--font-display);
     font-size: clamp(2.5rem, 7vw, 4.5rem);
@@ -356,14 +359,16 @@ const members = [
   }
 
   .fh-sub {
-    color: #8B949E;
+    color: var(--text-secondary);
     font-size: 1.05rem;
     max-width: 34rem;
     margin: 0 auto;
     line-height: 1.6;
   }
 
-  html.light .fh-sub { color: #656D76; }
+  html.light .fh-sub {
+    color: #4B5563;
+  }
 
   /* ── Roles section ────────────────────────── */
   .fh-roles {
@@ -381,30 +386,49 @@ const members = [
     font-family: var(--font-display);
     font-size: clamp(1.5rem, 4vw, 2rem);
     font-weight: 800;
-    color: #E6EDF3;
+    color: var(--text-primary);
     text-align: center;
     margin-bottom: 0.75rem;
   }
 
-  html.light .fh-roles h2,
-  html.light .fh-scenario h2,
-  html.light .fh-members h2,
-  html.light .fh-lifecycle h2 { color: #1F2328; }
-
   .roles-ring {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    grid-template-columns: repeat(5, 1fr);
     gap: 1rem;
     margin-top: 2rem;
+  }
+
+  @media (max-width: 860px) {
+    .roles-ring {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .roles-ring {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 360px) {
+    .roles-ring {
+      grid-template-columns: 1fr;
+    }
   }
 
   .role-node {
     padding: 1.5rem 1.25rem;
     border-radius: 16px;
-    background: rgba(22,27,34,0.6);
-    border: 1px solid rgba(48,54,61,0.5);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     text-align: center;
-    transition: all 0.3s;
+    transition: border-color 300ms ease, transform 300ms ease, box-shadow 300ms ease;
+    outline: none;
+  }
+
+  .role-node:focus-visible {
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--rc) 35%, transparent);
+    border-color: color-mix(in srgb, var(--rc) 60%, transparent);
   }
 
   .role-node:hover {
@@ -413,13 +437,8 @@ const members = [
     box-shadow: 0 8px 24px color-mix(in srgb, var(--rc) 10%, transparent);
   }
 
-  html.light .role-node {
-    background: rgba(255,255,255,0.85);
-    border-color: #D0D7DE;
-  }
-
   html.light .role-node:hover {
-    border-color: color-mix(in srgb, var(--rc) 30%, #D0D7DE);
+    border-color: color-mix(in srgb, var(--rc) 30%, var(--card-border));
     box-shadow: 0 8px 24px rgba(0,0,0,0.06);
   }
 
@@ -432,20 +451,16 @@ const members = [
     font-family: var(--font-display);
     font-size: 1.05rem;
     font-weight: 700;
-    color: #E6EDF3;
+    color: var(--text-primary);
     margin-bottom: 0.4rem;
   }
 
-  html.light .role-node h3 { color: #1F2328; }
-
   .role-node p {
     font-size: 0.78rem;
-    color: #8B949E;
+    color: var(--text-secondary);
     line-height: 1.45;
     margin-bottom: 0.75rem;
   }
-
-  html.light .role-node p { color: #656D76; }
 
   .role-keywords {
     display: flex;
@@ -462,6 +477,11 @@ const members = [
     background: color-mix(in srgb, var(--rc) 10%, transparent);
     color: var(--rc);
     border: 1px solid color-mix(in srgb, var(--rc) 15%, transparent);
+  }
+
+  html.light .kw-tag {
+    background: color-mix(in srgb, var(--rc) 8%, #F6F8FA);
+    border-color: color-mix(in srgb, var(--rc) 25%, #D8DEE4);
   }
 
   /* ── Scenario ─────────────────────────────── */
@@ -488,7 +508,13 @@ const members = [
   .flow-step {
     width: 100%;
     position: relative;
-    animation: step-in 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
+    animation: step-in 700ms cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .flow-step {
+      animation: none;
+    }
   }
 
   .flow-step[data-step="1"] { animation-delay: 0.1s; }
@@ -521,8 +547,8 @@ const members = [
   .step-card {
     padding: 1.25rem 1.5rem;
     border-radius: 14px;
-    background: rgba(22,27,34,0.7);
-    border: 1px solid rgba(48,54,61,0.5);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
   }
 
   html.light .step-card {
@@ -552,7 +578,7 @@ const members = [
     background: rgba(245,158,11,0.08);
     border: 1px solid rgba(245,158,11,0.2);
     font-size: 0.9rem;
-    color: #E6EDF3;
+    color: var(--text-primary);
     font-style: italic;
   }
 
@@ -590,14 +616,14 @@ const members = [
     font-weight: 600;
   }
 
-  .tag-arrow { color: #8B949E; font-size: 0.8rem; }
+  .tag-arrow { color: var(--text-secondary); font-size: 0.8rem; }
 
   .tag-role {
     font-size: 0.72rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    color: #E6EDF3;
+    color: var(--text-primary);
     padding: 2px 8px;
     border-radius: 4px;
     background: color-mix(in srgb, var(--rc) 20%, transparent);
@@ -639,11 +665,9 @@ const members = [
   .action-member {
     font-weight: 700;
     font-size: 0.85rem;
-    color: #E6EDF3;
+    color: var(--text-primary);
     display: block;
   }
-
-  html.light .action-member { color: #1F2328; }
 
   .action-role {
     font-size: 0.6rem;
@@ -655,12 +679,10 @@ const members = [
 
   .action-text {
     font-size: 0.82rem;
-    color: #8B949E;
+    color: var(--text-secondary);
     flex: 1;
     min-width: 120px;
   }
-
-  html.light .action-text { color: #656D76; }
 
   .action-priority {
     font-size: 0.6rem;
@@ -697,17 +719,29 @@ const members = [
 
   .members-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
+  }
+
+  @media (max-width: 700px) {
+    .members-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .members-grid {
+      grid-template-columns: 1fr;
+    }
   }
 
   .member-card {
     padding: 1.5rem;
     border-radius: 16px;
-    background: rgba(22,27,34,0.6);
-    border: 1px solid rgba(48,54,61,0.5);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     text-align: center;
-    transition: all 0.3s;
+    transition: border-color 300ms ease, transform 300ms ease, box-shadow 300ms ease;
   }
 
   .member-card:hover {
@@ -715,9 +749,9 @@ const members = [
     transform: translateY(-2px);
   }
 
-  html.light .member-card {
-    background: rgba(255,255,255,0.85);
-    border-color: #D0D7DE;
+  html.light .member-card:hover {
+    border-color: rgba(180,83,9,0.3);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.05);
   }
 
   .member-avatar {
@@ -729,11 +763,9 @@ const members = [
     font-family: var(--font-display);
     font-size: 1.2rem;
     font-weight: 700;
-    color: #E6EDF3;
+    color: var(--text-primary);
     margin-bottom: 0.75rem;
   }
-
-  html.light .member-card h3 { color: #1F2328; }
 
   .member-roles {
     display: flex;
@@ -756,6 +788,11 @@ const members = [
     border: 1px solid color-mix(in srgb, var(--rc) 18%, transparent);
   }
 
+  html.light .member-role-tag {
+    background: color-mix(in srgb, var(--rc) 8%, #F6F8FA);
+    border-color: color-mix(in srgb, var(--rc) 25%, #D8DEE4);
+  }
+
   .member-realms {
     display: flex;
     flex-wrap: wrap;
@@ -768,7 +805,7 @@ const members = [
     font-size: 0.6rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: #8B949E;
+    color: var(--text-secondary);
     font-weight: 600;
     margin-right: 0.25rem;
   }
@@ -804,6 +841,8 @@ const members = [
     gap: 0.5rem;
     margin-top: 2rem;
     flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
   }
 
   .lc-step {
@@ -813,15 +852,26 @@ const members = [
     gap: 0.5rem;
     padding: 1.25rem 1rem;
     border-radius: 12px;
-    background: rgba(22,27,34,0.5);
-    border: 1px solid rgba(48,54,61,0.4);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     min-width: 140px;
     flex: 1;
   }
 
-  html.light .lc-step {
-    background: rgba(255,255,255,0.8);
-    border-color: #D0D7DE;
+  @media (max-width: 560px) {
+    .lifecycle-flow {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .lc-arrow {
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+      text-align: center;
+      transform: rotate(90deg);
+    }
+    .lc-step {
+      min-width: auto;
+    }
   }
 
   .lc-dot {
@@ -830,9 +880,21 @@ const members = [
     border-radius: 50%;
   }
 
-  .lc-pending .lc-dot { background: var(--amber); }
-  .lc-progress .lc-dot { background: #3b82f6; animation: pulse-dot 2s infinite; }
-  .lc-done .lc-dot { background: #10b981; }
+  .lc-pending .lc-dot,
+  .lc-progress .lc-dot,
+  .lc-done .lc-dot {
+    background: var(--lc-dot-bg, currentColor);
+  }
+
+  .lc-progress .lc-dot {
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lc-progress .lc-dot {
+      animation: none;
+    }
+  }
 
   @keyframes pulse-dot {
     0%, 100% { opacity: 1; }
@@ -843,52 +905,27 @@ const members = [
     font-family: var(--font-display);
     font-size: 0.85rem;
     font-weight: 700;
-    color: #E6EDF3;
+    color: var(--text-primary);
   }
-
-  html.light .lc-label { color: #1F2328; }
 
   .lc-step p {
     font-size: 0.72rem;
-    color: #8B949E;
+    color: var(--text-secondary);
   }
-
-  html.light .lc-step p { color: #656D76; }
 
   .lc-arrow {
     color: rgba(245,158,11,0.4);
     font-size: 1.2rem;
     padding-top: 1.5rem;
     flex-shrink: 0;
+    list-style: none;
   }
 
-  /* ── Light mode enhancements ─────────────── */
-  html.light .fh-sub { color: #4B5563; }
-  html.light .fh-badge { color: #B45309; border-color: rgba(180,83,9,0.3); background: rgba(245,158,11,0.08); }
-  html.light .role-node { background: #FFFFFF; border-color: #D8DEE4; }
-  html.light .role-node:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
-  html.light .role-node h3 { color: #1F2328; }
-  html.light .role-node p { color: #4B5563; }
-  html.light .kw-tag { background: color-mix(in srgb, var(--rc) 8%, #F6F8FA); border-color: color-mix(in srgb, var(--rc) 25%, #D8DEE4); }
-  html.light .step-card { background: #FFFFFF; border-color: #D8DEE4; }
-  html.light .msg-bubble { background: rgba(245,158,11,0.06); border-color: rgba(245,158,11,0.25); color: #1F2328; }
-  html.light .analysis-tag { background: color-mix(in srgb, var(--rc) 4%, #F6F8FA); border-color: color-mix(in srgb, var(--rc) 15%, #D8DEE4); }
-  html.light .tag-arrow { color: #4B5563; }
-  html.light .tag-role { color: #1F2328; background: color-mix(in srgb, var(--rc) 12%, #F6F8FA); }
-  html.light .action-item { background: color-mix(in srgb, var(--rc) 3%, #FAFBFC); }
-  html.light .action-member { color: #1F2328; }
-  html.light .action-text { color: #4B5563; }
-  html.light .action-priority[data-priority="high"] { background: rgba(220,38,38,0.08); color: #dc2626; }
-  html.light .action-priority[data-priority="normal"] { background: rgba(37,99,235,0.08); color: #2563eb; }
-  html.light .member-card { background: #FFFFFF; border-color: #D8DEE4; }
-  html.light .member-card:hover { border-color: rgba(180,83,9,0.3); box-shadow: 0 4px 16px rgba(0,0,0,0.05); }
-  html.light .member-card h3 { color: #1F2328; }
-  html.light .member-role-tag { background: color-mix(in srgb, var(--rc) 8%, #F6F8FA); border-color: color-mix(in srgb, var(--rc) 25%, #D8DEE4); }
-  html.light .realm-label { color: #4B5563; }
-  html.light .realm-chip { background: rgba(0,168,136,0.06); border-color: rgba(0,168,136,0.25); color: #047857; }
-  html.light .lc-step { background: #FFFFFF; border-color: #D8DEE4; }
-  html.light .lc-label { color: #1F2328; }
-  html.light .lc-step p { color: #4B5563; }
-  html.light .lc-arrow { color: rgba(180,83,9,0.5); }
-  html.light .flow-arrow { color: rgba(180,83,9,0.5); }
+  html.light .lc-arrow {
+    color: rgba(180,83,9,0.5);
+  }
+
+  html.light .flow-arrow {
+    color: rgba(180,83,9,0.5);
+  }
 </style>

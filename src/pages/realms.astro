@@ -163,7 +163,7 @@ const positions = realms.map((realm, i) => {
             class="realm-orb"
             data-realm={r.id}
             style={`left:${r.cx}%;top:${r.cy}%;--rc:${r.color}`}
-            aria-label={r.name}
+            aria-label={`Select ${r.name} realm`}
           >
             <span class="orb-glow" aria-hidden="true"></span>
             <span class="orb-icon">{r.icon}</span>
@@ -178,7 +178,7 @@ const positions = realms.map((realm, i) => {
       <!-- Mobile grid -->
       <div class="realm-grid">
         {realms.map((r) => (
-          <button class="realm-tile" data-realm={r.id} style={`--rc:${r.color}`}>
+          <button class="realm-tile" data-realm={r.id} style={`--rc:${r.color}`} aria-label={`Select ${r.name} realm`}>
             <span class="tile-icon">{r.icon}</span>
             <span class="tile-name">
               <span class="en">{r.name}</span>
@@ -190,7 +190,7 @@ const positions = realms.map((realm, i) => {
     </section>
 
     <!-- Detail panel -->
-    <section class="rp-detail" id="rp-detail">
+    <section class="rp-detail" id="rp-detail" aria-live="polite">
       <p class="detail-hint" id="detail-hint">
         <span class="en">Click a realm to explore</span>
         <span class="zh">点击一个域查看详情</span>
@@ -316,19 +316,31 @@ const positions = realms.map((realm, i) => {
 </Layout>
 
 <style is:inline>
-  @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&display=swap');
-
   .realms-page {
     --font-display: 'Rajdhani', sans-serif;
+    --rp-bg: #0D1117;
+    --rp-fg: #E6EDF3;
+    --rp-muted: #8B949E;
+    --rp-panel: rgba(22,27,34,0.6);
+    --rp-panel-solid: rgba(22,27,34,0.9);
+    --rp-border: rgba(48,54,61,0.5);
+    --rp-accent: #00D4AA;
+    --rp-purple: #6C3FA0;
     min-height: 100vh;
     position: relative;
-    background: #0D1117;
-    color: #E6EDF3;
+    background: var(--rp-bg);
+    color: var(--rp-fg);
   }
 
   html.light .realms-page {
-    background: #F6F8FA;
-    color: #1F2328;
+    --rp-bg: #F6F8FA;
+    --rp-fg: #1F2328;
+    --rp-muted: #4B5563;
+    --rp-panel: rgba(255,255,255,0.85);
+    --rp-panel-solid: rgba(255,255,255,0.95);
+    --rp-border: #D8DEE4;
+    --rp-accent: #047857;
+    --rp-purple: #6C3FA0;
   }
 
   /* ── Starfield ────────────────────────────── */
@@ -370,11 +382,17 @@ const positions = realms.map((realm, i) => {
     animation: drift 60s linear infinite;
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    .starfield::after { animation: none; }
+  }
+
   @keyframes drift {
     0% { transform: translate(0, 0); }
     50% { transform: translate(-8px, -12px); }
     100% { transform: translate(0, 0); }
   }
+
+  html.light .starfield { opacity: 0.3; }
 
   /* ── Hero ──────────────────────────────────── */
   .rp-hero {
@@ -391,9 +409,9 @@ const positions = realms.map((realm, i) => {
     font-size: 0.8rem;
     font-weight: 600;
     letter-spacing: 0.05em;
-    border: 1px solid rgba(0,212,170,0.3);
-    color: #00D4AA;
-    background: rgba(0,212,170,0.06);
+    border: 1px solid color-mix(in srgb, var(--rp-accent) 30%, transparent);
+    color: var(--rp-accent);
+    background: color-mix(in srgb, var(--rp-accent) 6%, transparent);
     margin-bottom: 1.5rem;
   }
 
@@ -402,7 +420,7 @@ const positions = realms.map((realm, i) => {
     font-size: clamp(2.5rem, 7vw, 4.5rem);
     font-weight: 700;
     letter-spacing: -0.03em;
-    background: linear-gradient(135deg, #6C3FA0 20%, #00D4AA 80%);
+    background: linear-gradient(135deg, var(--rp-purple) 20%, var(--rp-accent) 80%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -411,14 +429,12 @@ const positions = realms.map((realm, i) => {
   }
 
   .rp-sub {
-    color: #8B949E;
+    color: var(--rp-muted);
     font-size: 1.05rem;
     max-width: 34rem;
     margin: 0 auto;
     line-height: 1.6;
   }
-
-  html.light .rp-sub { color: #656D76; }
 
   /* ── Constellation Map ────────────────────── */
   .rp-map {
@@ -450,6 +466,10 @@ const positions = realms.map((realm, i) => {
   .tentacle-line {
     animation: line-pulse 4s ease-in-out infinite;
     animation-delay: var(--d, 0s);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tentacle-line { animation: none; }
   }
 
   @keyframes line-pulse {
@@ -491,21 +511,16 @@ const positions = realms.map((realm, i) => {
     z-index: 5;
   }
 
-  .core-icon { font-size: 2.2rem; line-height: 1; }
-  .core-label { font-size: 0.55rem; color: #8B949E; letter-spacing: 0.08em; text-transform: uppercase; }
-
-  @keyframes brain-glow {
-    0%, 100% {
-      box-shadow: 0 0 30px rgba(108,63,160,0.15), 0 0 60px rgba(108,63,160,0.05);
-    }
-    50% {
-      box-shadow: 0 0 50px rgba(108,63,160,0.3), 0 0 100px rgba(108,63,160,0.1);
-    }
+  @media (prefers-reduced-motion: reduce) {
+    .core-brain { animation: none; }
   }
 
-  html.light .core-brain {
-    background: rgba(108,63,160,0.08);
-    border-color: rgba(108,63,160,0.25);
+  .core-icon { font-size: 2.2rem; line-height: 1; }
+  .core-label { font-size: 0.55rem; color: var(--rp-muted); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  @keyframes brain-glow {
+    0%, 100% { box-shadow: 0 0 30px rgba(108,63,160,0.15), 0 0 60px rgba(108,63,160,0.05); }
+    50% { box-shadow: 0 0 50px rgba(108,63,160,0.3), 0 0 100px rgba(108,63,160,0.1); }
   }
 
   /* Realm orbs */
@@ -524,10 +539,19 @@ const positions = realms.map((realm, i) => {
     border: 1.5px solid color-mix(in srgb, var(--rc) 35%, transparent);
     backdrop-filter: blur(10px);
     cursor: pointer;
-    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.35s, background 0.35s, box-shadow 0.35s;
     z-index: 4;
     padding: 0;
     outline: none;
+  }
+
+  html.light .realm-orb {
+    background: rgba(255,255,255,0.92);
+    border-color: color-mix(in srgb, var(--rc) 25%, var(--rp-border));
+  }
+
+  .realm-orb:focus-visible {
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--rc) 40%, transparent);
   }
 
   .orb-glow {
@@ -546,9 +570,7 @@ const positions = realms.map((realm, i) => {
     background: color-mix(in srgb, var(--rc) 8%, rgba(13,17,23,0.95));
   }
 
-  .realm-orb:hover .orb-glow {
-    opacity: 1;
-  }
+  .realm-orb:hover .orb-glow { opacity: 1; }
 
   .realm-orb.selected {
     transform: translate(-50%, -50%) scale(1.22);
@@ -557,24 +579,20 @@ const positions = realms.map((realm, i) => {
     background: color-mix(in srgb, var(--rc) 12%, rgba(13,17,23,0.95));
   }
 
-  .realm-orb.selected .orb-glow { opacity: 1; }
-
-  .orb-icon { font-size: 1.6rem; line-height: 1; }
-  .orb-name { font-size: 0.6rem; color: #8B949E; white-space: nowrap; }
-
-  html.light .realm-orb {
-    background: rgba(255,255,255,0.92);
-    border-color: color-mix(in srgb, var(--rc) 25%, #D0D7DE);
-  }
   html.light .realm-orb:hover,
   html.light .realm-orb.selected {
     background: rgba(255,255,255,0.98);
   }
 
+  .realm-orb.selected .orb-glow { opacity: 1; }
+
+  .orb-icon { font-size: 1.6rem; line-height: 1; }
+  .orb-name { font-size: 0.6rem; color: var(--rp-muted); white-space: nowrap; }
+
   /* ── Mobile grid ──────────────────────────── */
   .realm-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 0.625rem;
     max-width: 420px;
     margin: 0 auto;
@@ -589,31 +607,28 @@ const positions = realms.map((realm, i) => {
     gap: 0.375rem;
     padding: 0.875rem 0.5rem;
     border-radius: 14px;
-    background: rgba(22,27,34,0.6);
-    border: 1px solid rgba(48,54,61,0.5);
+    background: var(--rp-panel);
+    border: 1px solid var(--rp-border);
     cursor: pointer;
-    transition: all 0.25s;
+    transition: border-color 0.25s, background 0.25s, transform 0.25s;
+    outline: none;
+  }
+
+  .realm-tile:focus-visible {
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--rc) 40%, transparent);
   }
 
   .tile-icon { font-size: 1.6rem; }
-  .tile-name { font-size: 0.7rem; color: #8B949E; }
+  .tile-name { font-size: 0.7rem; color: var(--rp-muted); }
 
   .realm-tile:hover,
   .realm-tile.selected {
     border-color: var(--rc);
-    background: color-mix(in srgb, var(--rc) 8%, rgba(22,27,34,0.8));
+    background: color-mix(in srgb, var(--rc) 8%, var(--rp-panel));
+    transform: translateY(-2px);
   }
 
-  .realm-tile.selected .tile-name { color: #E6EDF3; }
-
-  html.light .realm-tile {
-    background: rgba(255,255,255,0.8);
-    border-color: #D0D7DE;
-  }
-  html.light .realm-tile:hover,
-  html.light .realm-tile.selected {
-    background: white;
-  }
+  .realm-tile.selected .tile-name { color: var(--rp-fg); }
 
   /* ── Detail panel ─────────────────────────── */
   .rp-detail {
@@ -627,16 +642,18 @@ const positions = realms.map((realm, i) => {
 
   .detail-hint {
     text-align: center;
-    color: #8B949E;
+    color: var(--rp-muted);
     font-size: 0.85rem;
     opacity: 0.7;
   }
 
-  html.light .detail-hint { color: #656D76; }
-
   .detail-card {
     display: none;
     animation: card-enter 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .detail-card { animation: none; }
   }
 
   .detail-card.active { display: block; }
@@ -652,8 +669,8 @@ const positions = realms.map((realm, i) => {
     gap: 1.25rem;
     padding: 1.5rem 1.75rem;
     border-radius: 16px 16px 0 0;
-    background: color-mix(in srgb, var(--rc) 6%, rgba(22,27,34,0.9));
-    border: 1px solid color-mix(in srgb, var(--rc) 25%, rgba(48,54,61,0.6));
+    background: color-mix(in srgb, var(--rc) 6%, var(--rp-panel-solid));
+    border: 1px solid color-mix(in srgb, var(--rc) 25%, var(--rp-border));
     border-bottom: none;
   }
 
@@ -663,18 +680,11 @@ const positions = realms.map((realm, i) => {
     font-family: var(--font-display);
     font-size: 1.6rem;
     font-weight: 700;
-    color: #E6EDF3;
+    color: var(--rp-fg);
     margin-bottom: 0.25rem;
   }
 
-  .dc-title p { color: #8B949E; font-size: 0.875rem; }
-
-  html.light .dc-header {
-    background: color-mix(in srgb, var(--rc) 4%, rgba(255,255,255,0.95));
-    border-color: color-mix(in srgb, var(--rc) 15%, #D0D7DE);
-  }
-  html.light .dc-title h3 { color: #1F2328; }
-  html.light .dc-title p { color: #656D76; }
+  .dc-title p { color: var(--rp-muted); font-size: 0.875rem; }
 
   .dc-grid {
     display: grid;
@@ -682,32 +692,25 @@ const positions = realms.map((realm, i) => {
     gap: 1.25rem;
     padding: 1.5rem 1.75rem;
     border-radius: 0 0 16px 16px;
-    background: rgba(22,27,34,0.5);
-    border: 1px solid rgba(48,54,61,0.4);
+    background: var(--rp-panel);
+    border: 1px solid var(--rp-border);
     border-top: none;
-  }
-
-  html.light .dc-grid {
-    background: rgba(255,255,255,0.85);
-    border-color: #D0D7DE;
   }
 
   .dc-section h4 {
     font-size: 0.65rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: #8B949E;
+    color: var(--rp-muted);
     margin-bottom: 0.5rem;
     font-weight: 600;
   }
-
-  html.light .dc-section h4 { color: #656D76; }
 
   .dc-section ul { list-style: none; padding: 0; margin: 0; }
 
   .dc-section li {
     font-size: 0.85rem;
-    color: #E6EDF3;
+    color: var(--rp-fg);
     padding: 0.2rem 0;
   }
 
@@ -720,11 +723,8 @@ const positions = realms.map((realm, i) => {
 
   .dc-section p {
     font-size: 0.85rem;
-    color: #E6EDF3;
+    color: var(--rp-fg);
   }
-
-  html.light .dc-section li,
-  html.light .dc-section p { color: #1F2328; }
 
   .dc-section code {
     font-family: 'JetBrains Mono', monospace;
@@ -733,7 +733,7 @@ const positions = realms.map((realm, i) => {
     background: rgba(0,212,170,0.08);
     border: 1px solid rgba(0,212,170,0.15);
     border-radius: 5px;
-    color: #00D4AA;
+    color: var(--rp-accent);
   }
 
   html.light .dc-section code {
@@ -756,11 +756,9 @@ const positions = realms.map((realm, i) => {
     font-family: var(--font-display);
     font-size: clamp(1.5rem, 4vw, 2.2rem);
     font-weight: 700;
-    color: #E6EDF3;
+    color: var(--rp-fg);
     margin-bottom: 0.75rem;
   }
-
-  html.light .rp-connections h2 { color: #1F2328; }
 
   .rp-connections .rp-sub { margin-bottom: 2.5rem; }
 
@@ -777,19 +775,12 @@ const positions = realms.map((realm, i) => {
   .cross-card {
     padding: 1.25rem;
     border-radius: 14px;
-    background: rgba(22,27,34,0.5);
-    border: 1px solid rgba(48,54,61,0.4);
+    background: var(--rp-panel);
+    border: 1px solid var(--rp-border);
     transition: border-color 0.3s;
   }
 
-  .cross-card:hover {
-    border-color: rgba(0,212,170,0.3);
-  }
-
-  html.light .cross-card {
-    background: rgba(255,255,255,0.85);
-    border-color: #D0D7DE;
-  }
+  .cross-card:hover { border-color: color-mix(in srgb, var(--rp-accent) 30%, transparent); }
 
   .cross-from, .cross-to {
     display: inline-flex;
@@ -797,44 +788,23 @@ const positions = realms.map((realm, i) => {
     gap: 0.375rem;
     font-size: 0.8rem;
     font-weight: 600;
-    color: #E6EDF3;
+    color: var(--rp-fg);
   }
-
-  html.light .cross-from,
-  html.light .cross-to { color: #1F2328; }
 
   .cross-arrow {
     display: inline-block;
     margin: 0 0.5rem;
-    color: #00D4AA;
+    color: var(--rp-accent);
     font-weight: 700;
   }
 
   .cross-desc {
     margin-top: 0.75rem;
     font-size: 0.8rem;
-    color: #8B949E;
+    color: var(--rp-muted);
     font-style: italic;
     line-height: 1.5;
   }
-
-  html.light .cross-desc { color: #4B5563; }
-
-  /* ── Light mode enhancements ─────────────── */
-  html.light .starfield { opacity: 0.3; }
-  html.light .rp-sub { color: #4B5563; }
-  html.light .rp-badge { color: #047857; border-color: rgba(16,185,129,0.4); background: rgba(16,185,129,0.08); }
-  html.light .core-label { color: #4B5563; }
-  html.light .orb-name { color: #374151; }
-  html.light .tile-name { color: #374151; }
-  html.light .realm-tile.selected .tile-name { color: #1F2328; }
-  html.light .detail-hint { color: #4B5563; }
-  html.light .dc-title p { color: #4B5563; }
-  html.light .dc-section h4 { color: #4B5563; }
-  html.light .cross-card { background: #F6F8FA; border-color: #D8DEE4; }
-  html.light .cross-card:hover { border-color: rgba(0,168,136,0.4); }
-  html.light .cross-from, html.light .cross-to { color: #1F2328; }
-  html.light .cross-arrow { color: #047857; }
 </style>
 
 <script is:inline>
@@ -845,15 +815,14 @@ const positions = realms.map((realm, i) => {
     const hint = document.getElementById('detail-hint');
 
     function selectRealm(id) {
-      // Clear
       orbs.forEach(o => o.classList.remove('selected'));
       tiles.forEach(t => t.classList.remove('selected'));
       details.forEach(d => d.classList.remove('active'));
 
-      // Activate
-      const orb = document.querySelector(`.realm-orb[data-realm="${id}"]`);
-      const tile = document.querySelector(`.realm-tile[data-realm="${id}"]`);
-      const card = document.querySelector(`.detail-card[data-realm="${id}"]`);
+      const safeId = CSS.escape(id);
+      const orb = document.querySelector('.realm-orb[data-realm="' + safeId + '"]');
+      const tile = document.querySelector('.realm-tile[data-realm="' + safeId + '"]');
+      const card = document.querySelector('.detail-card[data-realm="' + safeId + '"]');
 
       orb?.classList.add('selected');
       tile?.classList.add('selected');
@@ -861,7 +830,6 @@ const positions = realms.map((realm, i) => {
       if (card) {
         card.classList.add('active');
         if (hint) hint.style.display = 'none';
-        // Scroll detail into view on mobile
         if (window.innerWidth < 768) {
           card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }

@@ -211,10 +211,12 @@ const souls: Soul[] = [
     </section>
 
     <!-- Soul cards -->
-    <section class="sg-gallery">
+    <section class="sg-gallery" aria-live="polite" aria-atomic="false">
       {souls.map((soul, idx) => (
         <article
           class="soul-card"
+          tabindex="0"
+          aria-label={`Soul card: ${soul.name} — ${soul.role}`}
           style={`--sc:${soul.color};--scl:${soul.colorLight};--delay:${idx * 0.12}s`}
         >
           <!-- Spotlight effect -->
@@ -222,7 +224,7 @@ const souls: Soul[] = [
 
           <!-- Card header -->
           <div class="sc-header">
-            <div class="sc-avatar">
+            <div class="sc-avatar" aria-hidden="true">
               <span>{soul.icon}</span>
             </div>
             <div class="sc-identity">
@@ -348,15 +350,26 @@ const souls: Soul[] = [
 
   .souls-page {
     --font-display: 'Cormorant Garamond', serif;
+    --sp-bg: #0D1117;
+    --sp-fg: #E6EDF3;
+    --sp-muted: #8B949E;
+    --sp-accent: #8B5FC4;
+    --sp-panel: rgba(22,27,34,0.7);
+    --sp-border: rgba(48,54,61,0.5);
+
     min-height: 100vh;
     position: relative;
-    background: #0D1117;
-    color: #E6EDF3;
+    background: var(--sp-bg);
+    color: var(--sp-fg);
   }
 
   html.light .souls-page {
-    background: #F6F8FA;
-    color: #1F2328;
+    --sp-bg: #F6F8FA;
+    --sp-fg: #1F2328;
+    --sp-muted: #656D76;
+    --sp-accent: #6C3FA0;
+    --sp-panel: rgba(255,255,255,0.92);
+    --sp-border: #D0D7DE;
   }
 
   /* ── Gallery ambient ──────────────────────── */
@@ -369,6 +382,13 @@ const souls: Soul[] = [
       radial-gradient(ellipse at 50% 0%, rgba(108,63,160,0.06) 0%, transparent 50%),
       radial-gradient(ellipse at 20% 80%, rgba(0,0,0,0.3) 0%, transparent 60%),
       radial-gradient(ellipse at 80% 80%, rgba(0,0,0,0.3) 0%, transparent 60%);
+  }
+
+  html.light .gallery-ambient {
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(108,63,160,0.03) 0%, transparent 50%),
+      radial-gradient(ellipse at 20% 80%, rgba(0,0,0,0.02) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 80%, rgba(0,0,0,0.02) 0%, transparent 60%);
   }
 
   /* ── Hero ──────────────────────────────────── */
@@ -387,7 +407,7 @@ const souls: Soul[] = [
     font-weight: 600;
     letter-spacing: 0.08em;
     border: 1px solid rgba(108,63,160,0.35);
-    color: #8B5FC4;
+    color: var(--sp-accent);
     background: rgba(108,63,160,0.06);
     font-family: 'JetBrains Mono', monospace;
     margin-bottom: 1.5rem;
@@ -398,29 +418,21 @@ const souls: Soul[] = [
     font-size: clamp(2.8rem, 8vw, 5rem);
     font-weight: 700;
     letter-spacing: -0.02em;
-    background: linear-gradient(135deg, #8B5FC4 30%, #E6EDF3 70%);
+    background: linear-gradient(135deg, var(--sp-accent) 30%, var(--sp-fg) 70%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
     margin-bottom: 1.25rem;
-    line-height: 1.1;
-  }
-
-  html.light .sg-hero h1 {
-    background: linear-gradient(135deg, #6C3FA0 30%, #1F2328 70%);
-    -webkit-background-clip: text;
-    background-clip: text;
+    line-height: 1.05;
   }
 
   .sg-sub {
-    color: #8B949E;
+    color: var(--sp-muted);
     font-size: 1.05rem;
     max-width: 36rem;
     margin: 0 auto;
-    line-height: 1.6;
+    line-height: 1.65;
   }
-
-  html.light .sg-sub { color: #656D76; }
 
   /* ── Gallery grid ─────────────────────────── */
   .sg-gallery {
@@ -441,13 +453,20 @@ const souls: Soul[] = [
   .soul-card {
     position: relative;
     border-radius: 20px;
-    background: rgba(22,27,34,0.7);
-    border: 1px solid rgba(48,54,61,0.5);
+    background: var(--sp-panel);
+    border: 1px solid var(--sp-border);
     padding: 2rem 1.75rem;
     overflow: hidden;
-    transition: border-color 0.4s, transform 0.4s;
+    transition: border-color 0.4s, transform 0.4s, box-shadow 0.4s;
     animation: card-rise 0.6s cubic-bezier(0.4, 0, 0.2, 1) both;
     animation-delay: var(--delay);
+    outline: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .soul-card {
+      animation: none;
+    }
   }
 
   @keyframes card-rise {
@@ -455,19 +474,34 @@ const souls: Soul[] = [
     to { opacity: 1; transform: translateY(0); }
   }
 
-  .soul-card:hover {
+  .soul-card:hover,
+  .soul-card:focus-visible {
     border-color: color-mix(in srgb, var(--sc) 40%, transparent);
-    transform: translateY(-4px);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .soul-card:hover,
+    .soul-card:focus-visible {
+      transform: translateY(-4px);
+    }
+  }
+
+  html.light .soul-card:hover,
+  html.light .soul-card:focus-visible {
+    border-color: color-mix(in srgb, var(--sc) 35%, var(--sp-border));
   }
 
   html.light .soul-card {
-    background: rgba(255,255,255,0.92);
-    border-color: #D0D7DE;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
   }
 
-  html.light .soul-card:hover {
-    border-color: color-mix(in srgb, var(--sc) 35%, #D0D7DE);
+  html.light .soul-card:hover,
+  html.light .soul-card:focus-visible {
     box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+  }
+
+  .soul-card:focus-visible {
+    box-shadow: 0 0 0 3px var(--sp-bg), 0 0 0 5px var(--sc);
   }
 
   /* Spotlight hover effect */
@@ -484,7 +518,10 @@ const souls: Soul[] = [
     pointer-events: none;
   }
 
-  .soul-card:hover .spotlight { opacity: 1; }
+  .soul-card:hover .spotlight,
+  .soul-card:focus-visible .spotlight {
+    opacity: 1;
+  }
 
   /* Card header */
   .sc-header {
@@ -502,25 +539,23 @@ const souls: Soul[] = [
     align-items: center;
     justify-content: center;
     font-size: 2rem;
-    background: color-mix(in srgb, var(--sc) 10%, rgba(22,27,34,0.8));
+    background: color-mix(in srgb, var(--sc) 10%, var(--sp-panel));
     border: 2px solid color-mix(in srgb, var(--sc) 30%, transparent);
     flex-shrink: 0;
   }
 
   html.light .sc-avatar {
     background: color-mix(in srgb, var(--sc) 8%, white);
-    border-color: color-mix(in srgb, var(--sc) 20%, #D0D7DE);
+    border-color: color-mix(in srgb, var(--sc) 20%, var(--sp-border));
   }
 
   .sc-identity h2 {
     font-family: var(--font-display);
     font-size: 1.8rem;
     font-weight: 700;
-    color: #E6EDF3;
-    line-height: 1.2;
+    color: var(--sp-fg);
+    line-height: 1.15;
   }
-
-  html.light .sc-identity h2 { color: #1F2328; }
 
   .sc-realm {
     font-size: 0.7rem;
@@ -533,16 +568,18 @@ const souls: Soul[] = [
     background: color-mix(in srgb, var(--sc) 10%, transparent);
   }
 
+  html.light .sc-realm {
+    background: color-mix(in srgb, var(--sc) 8%, var(--sp-bg));
+  }
+
   /* Role */
   .sc-role {
     font-size: 0.9rem;
-    color: #8B949E;
+    color: var(--sp-muted);
     margin-bottom: 1.25rem;
     font-style: italic;
-    line-height: 1.5;
+    line-height: 1.55;
   }
-
-  html.light .sc-role { color: #656D76; }
 
   /* Section */
   .sc-section {
@@ -556,15 +593,14 @@ const souls: Soul[] = [
     color: var(--sc);
     margin-bottom: 0.4rem;
     font-weight: 700;
+    line-height: 1.3;
   }
 
   .sc-section p {
     font-size: 0.85rem;
-    color: #C9D1D9;
-    line-height: 1.55;
+    color: var(--sp-fg);
+    line-height: 1.6;
   }
-
-  html.light .sc-section p { color: #1F2328; }
 
   /* Catchphrases */
   .sc-quotes {
@@ -577,9 +613,9 @@ const souls: Soul[] = [
     font-family: var(--font-display);
     font-size: 1.05rem;
     font-style: italic;
-    color: color-mix(in srgb, var(--sc) 80%, #E6EDF3);
+    color: color-mix(in srgb, var(--sc) 80%, var(--sp-fg));
     padding: 0.2rem 0;
-    line-height: 1.4;
+    line-height: 1.5;
   }
 
   html.light .sc-quotes li {
@@ -595,10 +631,11 @@ const souls: Soul[] = [
 
   .sc-memories li {
     font-size: 0.82rem;
-    color: #8B949E;
+    color: var(--sp-muted);
     padding: 0.2rem 0;
     padding-left: 1rem;
     position: relative;
+    line-height: 1.55;
   }
 
   .sc-memories li::before {
@@ -610,24 +647,21 @@ const souls: Soul[] = [
     top: 0.4rem;
   }
 
-  html.light .sc-memories li { color: #656D76; }
-
   /* Conversation preview */
   .sc-conversation {
     margin-top: 1.25rem;
     padding-top: 1rem;
-    border-top: 1px solid rgba(48,54,61,0.4);
+    border-top: 1px solid var(--sp-border);
   }
-
-  html.light .sc-conversation { border-top-color: #D0D7DE; }
 
   .sc-conversation h3 {
     font-size: 0.65rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: #8B949E;
+    color: var(--sp-muted);
     margin-bottom: 0.75rem;
     font-weight: 600;
+    line-height: 1.3;
   }
 
   .sc-chat {
@@ -644,24 +678,24 @@ const souls: Soul[] = [
 
   .sc-user {
     align-self: flex-end;
-    background: rgba(48,54,61,0.5);
-    border: 1px solid rgba(48,54,61,0.6);
+    background: color-mix(in srgb, var(--sp-muted) 30%, transparent);
+    border: 1px solid color-mix(in srgb, var(--sp-muted) 40%, transparent);
   }
 
   html.light .sc-user {
-    background: #F6F8FA;
-    border-color: #D0D7DE;
+    background: var(--sp-bg);
+    border-color: var(--sp-border);
   }
 
   .sc-entity {
     align-self: flex-start;
-    background: color-mix(in srgb, var(--sc) 6%, rgba(22,27,34,0.8));
-    border: 1px solid color-mix(in srgb, var(--sc) 15%, rgba(48,54,61,0.5));
+    background: color-mix(in srgb, var(--sc) 6%, var(--sp-panel));
+    border: 1px solid color-mix(in srgb, var(--sc) 15%, var(--sp-border));
   }
 
   html.light .sc-entity {
     background: color-mix(in srgb, var(--sc) 5%, white);
-    border-color: color-mix(in srgb, var(--sc) 12%, #D0D7DE);
+    border-color: color-mix(in srgb, var(--sc) 12%, var(--sp-border));
   }
 
   .sc-speaker {
@@ -669,20 +703,19 @@ const souls: Soul[] = [
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: #8B949E;
+    color: var(--sp-muted);
     display: block;
     margin-bottom: 0.2rem;
+    line-height: 1.3;
   }
 
   .sc-entity .sc-speaker { color: var(--sc); }
 
   .sc-msg p {
     font-size: 0.82rem;
-    color: #C9D1D9;
-    line-height: 1.5;
+    color: var(--sp-fg);
+    line-height: 1.55;
   }
-
-  html.light .sc-msg p { color: #1F2328; }
 
   /* ── SOUL.md format section ───────────────── */
   .sg-format {
@@ -698,11 +731,10 @@ const souls: Soul[] = [
     font-family: var(--font-display);
     font-size: clamp(1.5rem, 4vw, 2.2rem);
     font-weight: 700;
-    color: #E6EDF3;
+    color: var(--sp-fg);
     margin-bottom: 0.75rem;
+    line-height: 1.15;
   }
-
-  html.light .sg-format h2 { color: #1F2328; }
 
   .sg-format .sg-sub { margin-bottom: 2rem; }
 
@@ -710,7 +742,7 @@ const souls: Soul[] = [
     text-align: left;
     border-radius: 14px;
     background: rgba(13,17,23,0.9);
-    border: 1px solid rgba(48,54,61,0.6);
+    border: 1px solid var(--sp-border);
     padding: 1.5rem;
     overflow-x: auto;
   }
@@ -723,7 +755,7 @@ const souls: Soul[] = [
     margin: 0;
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.78rem;
-    line-height: 1.7;
+    line-height: 1.75;
   }
 
   .sg-code-card code {
@@ -733,27 +765,4 @@ const souls: Soul[] = [
   .code-key { color: #79C0FF; }
   .code-str { color: #A5D6FF; }
   .code-dim { color: #484F58; }
-
-  /* ── Light mode enhancements ─────────────── */
-  html.light .gallery-ambient {
-    background:
-      radial-gradient(ellipse at 50% 0%, rgba(108,63,160,0.03) 0%, transparent 50%),
-      radial-gradient(ellipse at 20% 80%, rgba(0,0,0,0.02) 0%, transparent 60%),
-      radial-gradient(ellipse at 80% 80%, rgba(0,0,0,0.02) 0%, transparent 60%);
-  }
-  html.light .sg-sub { color: #4B5563; }
-  html.light .sg-badge { color: #6C3FA0; border-color: rgba(108,63,160,0.3); background: rgba(108,63,160,0.06); }
-  html.light .sc-role { color: #4B5563; }
-  html.light .sc-section p { color: #374151; }
-  html.light .sc-memories li { color: #4B5563; }
-  html.light .sc-conversation h3 { color: #4B5563; }
-  html.light .sc-speaker { color: #4B5563; }
-  html.light .sc-msg p { color: #374151; }
-  html.light .sc-realm { background: color-mix(in srgb, var(--sc) 8%, #F6F8FA); }
-  html.light .soul-card { background: #FFFFFF; border-color: #D8DEE4; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
-  html.light .soul-card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
-  html.light .sc-avatar { background: color-mix(in srgb, var(--sc) 6%, #F6F8FA); border-color: color-mix(in srgb, var(--sc) 20%, #D8DEE4); }
-  html.light .sc-user { background: #F6F8FA; border-color: #D8DEE4; }
-  html.light .sc-entity { background: color-mix(in srgb, var(--sc) 4%, #F6F8FA); border-color: color-mix(in srgb, var(--sc) 12%, #D8DEE4); }
-  html.light .sc-conversation { border-top-color: #D8DEE4; }
 </style>
